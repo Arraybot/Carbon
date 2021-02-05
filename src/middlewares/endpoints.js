@@ -7,18 +7,18 @@
 module.exports = (req, res, next) => {
     // If they are not authorized to perform modifications.
     if (!req.session.authorized) {
-        res.redirect(401, '/login');
+        res.redirect('/login/');
         return;
     }
     // Check if the target exists.
     if (!req.session.current) {
-        res.redirect(400, '/');
+        res.redirect('/');
         return;
     }
     // Ensure that they have permission to perform this action.
     let authorized = req.session.authorized;
     if (!Array.isArray(authorized) || !authorized.includes(req.session.current)) {
-        res.redirect(403, '/');
+        res.redirect('/');
         return;
     }
     next();

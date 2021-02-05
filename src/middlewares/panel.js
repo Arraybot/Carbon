@@ -7,7 +7,7 @@
 module.exports = (req, res, next) => {
     // If they are not authorized to perform modifications.
     if (!req.session.authorized) {
-        res.redirect(401, '/login');
+        res.redirect('/login/');
         return;
     }
     next();

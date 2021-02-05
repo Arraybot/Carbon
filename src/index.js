@@ -4,6 +4,7 @@ const express = require('express');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 const bodyParser = require('body-parser');
+const oauth = require('./oauth');
 
 // Middleware components.
 const middlewareError = require('./middlewares/error');
@@ -19,8 +20,10 @@ const routeFilter = require('./routes/filter');
 const routeFilterBypass = require('./routes/filter_bypass');
 const routeGuild = require('./routes/guild');
 const routeInfo = require('./routes/info');
+const routeAuthorized = require('./routes/authorized');
 const routeLogin = require('./routes/login');
 const routeRender = require('./routes/render');
+const routeSelect = require('./routes/select');
 
 // Environment variables.
 const PORT = process.env.PORT || 80;
@@ -40,7 +43,8 @@ if (ENV === 'production') {
     app.set('trust proxy', 1);
 }
 
-// Allow for JSON bodies.
+// Allow for form + JSON bodies.
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Session middleware.
@@ -49,7 +53,10 @@ app.use(session({
     name: 'sid',
     secret: SECRET,
     resave: true,
-    saveUninitialized: false
+    saveUninitialized: false,
+    cookie: {
+        maxAge: 10 * 60 * 1000
+    }
 }));
 
 // Logging middleware.
@@ -93,8 +100,9 @@ app.delete('/ep/filter/', routeFilter.delete);
 app.put('/ep/guild/', routeGuild.put);
 
 // General page routes.
-app.get('/login', routeLogin);
-app.get('/select/', routeRender('select'));
+app.get('/login/', routeLogin);
+app.get('/authorized/', routeAuthorized);
+app.get('/select/', routeSelect);
 app.get('/panel/', routeRender('panel'));
 app.get('/info/:page', routeInfo);
 app.get('/', routeRender('index'));

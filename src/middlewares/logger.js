@@ -6,5 +6,9 @@
  */
 module.exports = (req, _, next) => {
     console.log('%s %s %s %s', new Date(), req.method, req.url, JSON.stringify(req.session));
+    if (Object.keys(req.body).length !== 0) {
+        console.log('\t%s', JSON.stringify(req.body));
+    }
+    console.log('\n');
     next();
 };

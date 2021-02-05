@@ -16,6 +16,7 @@
   "homepage": "https://github.com/Arraying/Carbon#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "discord-oauth2": "^2.6.0",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "path": "^0.12.7",
