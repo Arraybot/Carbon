@@ -12,13 +12,13 @@ module.exports = (req, res, next) => {
     }
     // Check if the target exists.
     if (!req.session.current) {
-        res.redirect('/');
+        res.redirect('/select/');
         return;
     }
     // Ensure that they have permission to perform this action.
     let authorized = req.session.authorized;
     if (!Array.isArray(authorized) || !authorized.includes(req.session.current)) {
-        res.redirect('/');
+        res.redirect('/select/');
         return;
     }
     next();
