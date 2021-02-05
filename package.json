@@ -1,0 +1,28 @@
+{
+  "name": "arraybot-carbon",
+  "version": "1.0.0",
+  "description": "Front end interface for Arraybot",
+  "main": "./src/index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Arraying/Carbon.git"
+  },
+  "author": "",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/Arraying/Carbon/issues"
+  },
+  "homepage": "https://github.com/Arraying/Carbon#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "path": "^0.12.7",
+    "pug": "^3.0.0",
+    "session-file-store": "^1.5.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.19.0"
+  }
+}
