@@ -4,20 +4,24 @@ html
     meta(name='viewport' content='width=device-width, initial-scale=1')
     block title
     link(rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css')
-    link(rel="stylesheet", href="/assets/style.css")
-    link(rel='shortcut icon' href='/assets/favicon.ico')
+    link(rel="stylesheet", href="/assets/styles/main.css")
+    link(rel='shortcut icon' href='/assets/images/favicon.ico')
+    script(src='/assets/scripts/main.js') 
   body.main.has-background-black-ter
     nav.navbar.is-dark(role='navigation' aria-label='main navigation')
       .navbar-brand
         a.navbar-item(href='/')
-          img(src='/assets/nav.png' alt='[]')
+          img(src='/assets/images/nav.png' alt='[]')
         a.navbar-burger(role='button' class='navbar-burger' aria-label='menu' aria-expanded='false' data-target='navmenu')
-      .navbar-menu#navmenu
+          span(aria-hidden='true')
+          span(aria-hidden='true')
+          span(aria-hidden='true')
+      .navbar-menu.has-background-dark#navmenu
         .navbar-start
-          a.navbar-item(href='/') Arraybot
-          a.navbar-item(href='/panel/') Web Panel
-          a.navbar-item(href='/docs/') Documentation
-          a.navbar-item(href='/about/') About
+          a.navbar-item.has-text-white(href='/') Arraybot
+          a.navbar-item.has-text-white(href='/panel/') Web Panel
+          a.navbar-item.has-text-white(href='/docs/') Documentation
+          a.navbar-item.has-text-white(href='/about/') About
         .navbar-end
           .navbar-item.buttons
             if login
@@ -33,5 +37,4 @@ html
     block site
     footer.footer.has-background-black-bis.has-text-grey-lighter
       .content.has-text-centered
-        span &#169;
-        |  2021 Arraybot
+        span &#169; 2021 Arraybot
