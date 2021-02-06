@@ -50,7 +50,9 @@ app.use(bodyParser.json());
 
 // Session middleware.
 app.use(session({
-    store: new FileStore(),
+    store: new FileStore({
+        logFn: () => {} // Disable logging.
+    }),
     name: 'sid',
     secret: SECRET,
     resave: true,

@@ -5,10 +5,11 @@
  * @param {Function} next Callback to call the next middleware component.
  */
 module.exports = (req, _, next) => {
-    console.log('%s %s %s %s', new Date(), req.method, req.url, JSON.stringify(req.session));
-    if (Object.keys(req.body).length !== 0) {
-        console.log('\t%s', JSON.stringify(req.body));
+    if (!req.url.startsWith('/assets/')) {
+        console.log('%s %s %s %s %s', new Date(), req.method, req.url, req.session.current, JSON.stringify(req.session.authorized));
+        if (Object.keys(req.body).length !== 0) {
+            console.log('\t%s', JSON.stringify(req.body));
+        }   
     }
-    console.log('\n');
     next();
 };
