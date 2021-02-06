@@ -6,5 +6,7 @@ module.exports = (req, res) => {
         res.redirect(404, '/');
         return;
     }
-    res.render(page);
+    res.render(page, {
+        login: req.session.authorized
+    });
 }

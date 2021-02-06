@@ -1,0 +1,37 @@
+html
+  head
+    meta(charset='utf-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1')
+    block title
+    link(rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css')
+    link(rel="stylesheet", href="/assets/style.css")
+    link(rel='icon' type='image/png' href='/assets/icon.png')
+  body.main.has-background-black-ter
+    nav.navbar.is-dark(role='navigation' aria-label='main navigation')
+      .navbar-brand
+        a.navbar-item(href='/')
+          img(src='/assets/nav.png' alt='[]')
+        a.navbar-burger(role='button' class='navbar-burger' aria-label='menu' aria-expanded='false' data-target='navmenu')
+      .navbar-menu#navmenu
+        .navbar-start
+          a.navbar-item(href='/') Arraybot
+          a.navbar-item(href='/panel/') Web Panel
+          a.navbar-item(href='/docs/') Documentation
+          a.navbar-item(href='/about/') About
+        .navbar-end
+          .navbar-item.buttons
+            if login
+              a.button.is-light(href='/logout/') Log out
+            else
+              a.button.is-light(href='/login/') Log in
+            a.button.is-warning
+              strong Patreon
+    section.hero.is-medium.is-warning.is-bold
+      .hero-body
+        p.title= title
+        p.subtitle= subtitle
+    block site
+    footer.footer.has-background-black-bis.has-text-grey-lighter
+      .content.has-text-centered
+        span &#169;
+        |  2021 Arraybot

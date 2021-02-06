@@ -22,6 +22,7 @@ const routeGuild = require('./routes/guild');
 const routeInfo = require('./routes/info');
 const routeAuthorized = require('./routes/authorized');
 const routeLogin = require('./routes/login');
+const routeLogout = require('./routes/logout');
 const routeRender = require('./routes/render');
 const routeSelect = require('./routes/select');
 
@@ -99,8 +100,12 @@ app.delete('/ep/filter/', routeFilter.delete);
 // General guild setting route.
 app.put('/ep/guild/', routeGuild.put);
 
+// Static content.
+app.use('/assets/', express.static(path.join(__dirname, 'assets')));
+
 // General page routes.
 app.get('/login/', routeLogin);
+app.get('/logout/', routeLogout);
 app.get('/authorized/', routeAuthorized);
 app.get('/select/', routeSelect);
 app.get('/panel/', routeRender('panel'));
