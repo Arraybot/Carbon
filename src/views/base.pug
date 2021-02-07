@@ -1,12 +1,12 @@
 html
   head
-    meta(charset='utf-8')
-    meta(name='viewport' content='width=device-width, initial-scale=1')
-    block title
-    link(rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css')
-    link(rel="stylesheet", href="/assets/styles/main.css")
-    link(rel='shortcut icon' href='/assets/images/favicon.ico')
-    script(src='/assets/scripts/main.js') 
+    block head
+      meta(charset='utf-8')
+      meta(name='viewport' content='width=device-width, initial-scale=1')
+      link(rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css')
+      link(rel="stylesheet", href="/assets/styles/main.css")
+      link(rel='shortcut icon' href='/assets/images/favicon.ico')
+      script(src='/assets/scripts/main.js') 
   body.main.has-background-black-ter
     nav.navbar.is-dark(role='navigation' aria-label='main navigation')
       .navbar-brand
@@ -28,7 +28,7 @@ html
               a.button.is-light(href='/logout/') Log out
             else
               a.button.is-light(href='/login/') Log in
-            a.button.is-warning
+            a.button.is-warning(href='https://www.patreon.com/arraying')
               strong Patreon
     section.hero.is-medium.is-warning.is-bold
       .hero-body

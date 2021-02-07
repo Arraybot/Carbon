@@ -23,17 +23,23 @@ module.exports = (req, res) => {
             let guilds = data[1];
             req.session.user = user;
             // Only allow the guilds in which the user has permissions.
-            req.session.guilds = guilds.filter(guild => {
-                if (guild.owner) {
-                    return true;
-                }
-                // Bitwise AND should determine if the permission bit is set.
-                let numberPerms = parseInt(guild.permissions);
-                if ((numberPerms & permissions) == permissions) {
-                    return true;
-                }
-                return false;
-            });
+            req.session.guilds = guilds
+                // Sort alphabetically first.
+                .sort((a, b) => {
+                    return a.name.localeCompare(b.name);
+                })
+                // Filter.
+                .filter(guild => {
+                    if (guild.owner) {
+                        return true;
+                    }
+                    // Bitwise AND should determine if the permission bit is set.
+                    let numberPerms = parseInt(guild.permissions);
+                    if ((numberPerms & permissions) == permissions) {
+                        return true;
+                    }
+                    return false;
+                });
             // Have an authorized parameter with just the IDs.
             req.session.authorized = req.session.guilds.map(guild => guild.id);
             res.redirect('/panel/');

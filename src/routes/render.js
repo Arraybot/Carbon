@@ -1,7 +1,9 @@
-module.exports = (view) => {
+module.exports = (view, options) => {
     return (req, res) => {
-        res.render(view, {
+        let values = {
             login: req.session.authorized
-        });
+        };
+        Object.assign(values, options);
+        res.render(view, values);
     };
 }

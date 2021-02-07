@@ -1,5 +1,19 @@
 extends base.pug
 
-block title
+block append head
   title Arraybot
 block site
+  section.section
+    .container
+      h2.title.has-text-white.is-size-1 What is Arraybot?
+      p.has-text-grey-light
+        | Arraybot is a multipurpose Discord bot that has been around since 2016.
+        | The bot's goal is to aid with general day-to-day activities, and to customise your Discord experience to your need. 
+        | Powerful yet with a simplistic design, it's ready to work out of the box, you just have to add it to your server.
+        | The project is fully transparent and open-source, funded by the community
+  section.section.snapon
+    .container
+      .buttons.is-centered
+        a.button.is-large.is-warning(href='/info/invite') Invite bot
+        a.button.is-large.is-warning(href='/info/server') Join server
+

@@ -1,6 +1,5 @@
 window.onload = () => {
     const burgers = document.querySelectorAll('.navbar-burger');
-    console.log(burgers)
     burgers.forEach(burger => {
         burger.addEventListener('click', () => {
             const targetId = burger.dataset.target;

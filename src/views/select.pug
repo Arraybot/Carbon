@@ -1,7 +1,26 @@
 extends base.pug
 
+block append head
+  link(rel="stylesheet", href="/assets/styles/select.css")
+  title Arraybot - Server Selector
 block site
-  .container
-    ul
-      each val in guilds
-        li= val.name + ': ' + val.permissions 
+  section.section
+    .container
+      .columns.is-multiline
+        each guild in guilds
+          .column.is-one-third
+            .card
+              .card-image
+                figure.image.is-square
+                  if guild.icon
+                    img(src='https://cdn.discordapp.com/icons/' + guild.id + '/' + guild.icon + '?size=512')
+                  else
+                    img(src='/assets/images/unknown.png')
+              .card-content.has-background-black-bis
+                h2.title.has-text-warning= guild.name
+                if guild.owner
+                  h3.subtitle.has-text-grey-light You own this server
+                else
+                  h3.subtitle.has-text-grey-light You manage this server
+              footer.card-footer.has-background-black
+                a.card-footer-item.has-text-white(href='/configure/' + guild.id + '/') Configure bot in this server

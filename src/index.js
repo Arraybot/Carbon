@@ -4,7 +4,6 @@ const express = require('express');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 const bodyParser = require('body-parser');
-const oauth = require('./oauth');
 
 // Middleware components.
 const middlewareError = require('./middlewares/error');
@@ -25,6 +24,7 @@ const routeLogin = require('./routes/login');
 const routeLogout = require('./routes/logout');
 const routeRender = require('./routes/render');
 const routeSelect = require('./routes/select');
+const routeConfigure = require('./routes/configure');
 
 // Environment variables.
 const PORT = process.env.PORT || 80;
@@ -111,8 +111,12 @@ app.get('/logout/', routeLogout);
 app.get('/authorized/', routeAuthorized);
 app.get('/select/', routeSelect);
 app.get('/panel/', routeRender('panel'));
-app.get('/info/:page', routeInfo);
-app.get('/', routeRender('index'));
+app.get('/configure/:server/', routeConfigure);
+app.get('/info/:page/', routeInfo);
+app.get('/', routeRender('index', {
+    title: 'Welcome to 2021...',
+    subtitle: 'It\'s time to give Arraybot a new look.'
+}));
 
 // Set the error handler after everything.
 app.use(middlewareError);
