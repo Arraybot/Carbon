@@ -11,20 +11,28 @@ const middelwareLogger = require('./middlewares/logger');
 const middlewarePanel = require('./middlewares/panel');
 const middlewareEndpoints = require('./middlewares/endpoints');
 
-// Routes.
-const routeAnnouncements = require('./routes/announcements');
-const routeCustomCommands = require('./routes/custom_commands');
-const routeDisabledCommands = require('./routes/disabled_commands');
-const routeFilter = require('./routes/filter');
-const routeFilterBypass = require('./routes/filter_bypass');
-const routeGuild = require('./routes/guild');
-const routeInfo = require('./routes/info');
-const routeAuthorized = require('./routes/authorized');
-const routeLogin = require('./routes/login');
-const routeLogout = require('./routes/logout');
-const routeRender = require('./routes/render');
-const routeSelect = require('./routes/select');
-const routeConfigure = require('./routes/configure');
+// Routes - API.
+const routeAnnouncements = require('./routes/api_announcements');
+const routeCustomCommands = require('./routes/api_custom_commands');
+const routeDisabledCommands = require('./routes/api_disabled_commands');
+const routeFilter = require('./routes/api_filter');
+const routeFilterBypass = require('./routes/api_filter_bypass');
+const routeGuild = require('./routes/api_guild');
+
+// Routes - Content.
+const routeInfo = require('./routes/content_info');
+const routeRender = require('./routes/content_render');
+
+// Routes - Core.
+const routeLogin = require('./routes/core_login');
+const routeLogout = require('./routes/core_logout');
+
+// Routes - OAuth2.
+const routeAuthorized = require('./routes/oauth_authorized');
+
+// Routes - Panel.
+const routeSelect = require('./routes/panel_select');
+const routeConfigure = require('./routes/panel_configure');
 
 // Environment variables.
 const PORT = process.env.PORT || 80;
