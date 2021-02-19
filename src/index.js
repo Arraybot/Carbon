@@ -20,7 +20,7 @@ const routeFilterBypass = require('./routes/api_filter_bypass');
 const routeGuild = require('./routes/api_guild');
 
 // Routes - Content.
-const routeInfo = require('./routes/content_info');
+const routeGo = require('./routes/content_go');
 const routeRender = require('./routes/content_render');
 
 // Routes - Core.
@@ -38,6 +38,9 @@ const routeConfigure = require('./routes/panel_configure');
 const PORT = process.env.PORT || 80;
 const SECRET = process.env.SECRET || 'apple sauce';
 const ENV = process.env.NODE_ENV || 'development';
+const GO_DOCS = process.env.GO_DOCS || '/';
+const GO_INVITE = process.env.GO_INVITE || '/';
+const GO_SERVER = process.env.GO_SERVER || '/';
 
 // Create app instance.
 const app = express();
@@ -113,14 +116,24 @@ app.put('/ep/guild/', routeGuild.put);
 // Static content.
 app.use('/assets/', express.static(path.join(__dirname, 'assets')));
 
-// General page routes.
+// Main site content - redirects.
+app.get('/go/docs/', routeGo(GO_DOCS));
+app.get('/go/invite/', routeGo(GO_INVITE));
+app.get('/go/server/', routeGo(GO_SERVER));
+
+// Core app functionality.
 app.get('/login/', routeLogin);
 app.get('/logout/', routeLogout);
+
+// OAuth2.
 app.get('/authorized/', routeAuthorized);
+
+// Panel endpoints.
+app.get('/configure/:server/', routeConfigure);
 app.get('/select/', routeSelect);
 app.get('/panel/', routeRender('panel'));
-app.get('/configure/:server/', routeConfigure);
-app.get('/info/:page/', routeInfo);
+
+// Index page.
 app.get('/', routeRender('index', {
     title: 'Welcome to 2021...',
     subtitle: 'It\'s time to give Arraybot a new look.'
