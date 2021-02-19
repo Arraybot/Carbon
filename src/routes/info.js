@@ -1,4 +1,4 @@
-const allowed = [];
+const allowed = ['invite', 'server'];
 
 module.exports = (req, res) => {
     let page = req.params.target;
