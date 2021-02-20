@@ -31,8 +31,9 @@ const routeLogout = require('./routes/core_logout');
 const routeAuthorized = require('./routes/oauth_authorized');
 
 // Routes - Panel.
-const routeSelect = require('./routes/panel_select');
 const routeConfigure = require('./routes/panel_configure');
+const routePanel = require('./routes/panel_panel');
+const routeSelect = require('./routes/panel_select');
 
 // Environment variables.
 const PORT = process.env.PORT || 80;
@@ -131,7 +132,8 @@ app.get('/authorized/', routeAuthorized);
 // Panel endpoints.
 app.get('/configure/:server/', routeConfigure);
 app.get('/select/', routeSelect);
-app.get('/panel/', routeRender('panel'));
+app.get('/panel/', routePanel);
+app.get('/panel/:dash/', routePanel);
 
 // Index page.
 app.get('/', routeRender('index', {

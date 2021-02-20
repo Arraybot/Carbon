@@ -1,1 +1,15 @@
-html
+extends base.pug
+
+block append head
+  link(rel="stylesheet", href="/assets/styles/panel.css")
+  title Arraybot - Web Panel - #{portion_name}
+block site
+  nav.breadcrumb.is-centered.mt-5(aria-label='breadcrumbs')
+    ul
+      li
+        a.crumb(href='/select/') Web Panel
+      li
+        a.crumb(href='/panel/') #{name}
+      li
+        a.crumb(href='#') #{portion_name}
+  block dashboard

@@ -1,0 +1,7 @@
+a.crumb {
+    color: hsl(0, 0%, 86%);
+}
+
+a.crumb:hover {
+    color: hsl(48, 100%, 67%);
+}

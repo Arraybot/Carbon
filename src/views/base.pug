@@ -19,9 +19,15 @@ html
       .navbar-menu.has-background-dark#navmenu
         .navbar-start
           a.navbar-item.has-text-white(href='/') Arraybot
-          a.navbar-item.has-text-white(href='/panel/') Web Panel
-          a.navbar-item.has-text-white(href='/docs/') Documentation
-          a.navbar-item.has-text-white(href='/about/') About
+          if login 
+            .navbar-item.has-dropdown.is-hoverable
+              a.navbar-link.has-text-white Web Panel
+              .navbar-dropdown
+                a.navbar-item.has-text-white(href='/select/') Select Server
+                a.navbar-item.has-text-white(href='/panel/') Modify Server
+          else
+            a.navbar-item.has-text-white(href='/panel/') Web Panel
+          a.navbar-item.has-text-white(href='/go/docs/') Documentation
         .navbar-end
           .navbar-item.buttons
             if login
