@@ -12,4 +12,49 @@ block site
         a.crumb(href='/panel/') #{name}
       li
         a.crumb(href='#') #{portion_name}
+  section.section.p-0
+    .tabs.is-centered.is-large.is-warning
+      ul
+        if portion_name == 'Settings'
+          li.is-active
+            a(href='/panel/') Settings
+        else
+          li
+            a(href='/panel/') Settings
+
+        if portion_name == 'Announcements'
+          li.is-active
+            a(href='/panel/announcements/') Announcements
+        else
+          li
+            a(href='/panel/announcements/') Announcements
+
+        if portion_name == 'Custom Commands'
+          li.is-active
+            a(href='/panel/customcommands/') Custom Commands
+        else
+          li
+            a(href='/panel/customcommands/') Custom Commands
+
+        if portion_name == 'Disabled Commands'
+          li.is-active
+            a(href='/panel/disabledcommands/') Disabled Commands
+        else
+          li
+            a(href='/panel/disabledcommands/') Disabled Commands
+
+        if portion_name == 'Filter'
+          li.is-active
+            a(href='/panel/filter/') Filter
+        else
+          li
+            a(href='/panel/filter/') Filter
+
+        if portion_name == 'Filter Bypasses'
+          li.is-active
+            a(href='/panel/filterbypasses/') Filter Bypasses
+        else
+          li
+            a(href='/panel/filterbypasses/') Filter Bypasses
+
   block dashboard

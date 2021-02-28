@@ -1,7 +1,21 @@
+:root {
+    --white: hsl(0, 0%, 86%); 
+    --yellow: hsl(48, 100%, 67%);
+}
+
 a.crumb {
-    color: hsl(0, 0%, 86%);
+    color: var(--white);
 }
 
 a.crumb:hover {
-    color: hsl(48, 100%, 67%);
+    color: var(--yellow);
+}
+
+.tabs a {
+    color: var(--white);
+}
+
+.tabs li.is-active a, .tabs a:hover {
+    color: var(--yellow);
+    border-bottom-color: var(--yellow);
 }
