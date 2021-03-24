@@ -1,8 +1,9 @@
 const oauth = require('../oauth');
+const redirect = require('../redirecter');
 
 module.exports = (req, res) => {
     if (req.session.authorized) {
-        res.redirect('/');
+        redirect(req, res, '/');
     }
-    res.redirect(oauth.generateAuthUrl({ scope: ['identify', 'guilds'] }));
+    redirect(req, res, oauth.generateAuthUrl({ scope: ['identify', 'guilds'] }));
 };

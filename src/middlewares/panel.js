@@ -1,3 +1,5 @@
+const redirect = require('../redirecter');
+
 /**
  * Middleware component to ensure that a specific API action can only be done by authorized users.
  * @param {Request} req The request.
@@ -7,7 +9,7 @@
 module.exports = (req, res, next) => {
     // If they are not authorized to perform modifications.
     if (!req.session.authorized) {
-        res.redirect('/login/');
+        redirect(req, res, '/login/');
         return;
     }
     next();

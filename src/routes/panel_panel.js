@@ -1,3 +1,4 @@
+const redirect = require('../redirecter');
 const dashes = [
     {
         name: '',
@@ -41,13 +42,13 @@ module.exports = (req, res) => {
     let guild = req.session.guilds.find(it => it.id === req.session.current);
     if (guild == null) {
         console.warn('Found expired guild.');
-        res.redirect('/select/');
+        redirect(req, res, '/select/');
         return;
     }
     let dash = req.params.dash;
     let panelObject = dash == null ? dashes[0] : dashes.find(it => it.name === dash);
     if (panelObject == null) {
-        res.redirect('/panel/');
+        redirect(req, res, '/panel/');
         return;
     }
     res.render(panelObject.template, {

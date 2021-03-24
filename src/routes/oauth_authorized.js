@@ -1,4 +1,5 @@
 const client = require('../oauth');
+const redirect = require('../redirecter');
 // Administrator or can manage guild.
 const permissions = 0x00000020;
 
@@ -42,7 +43,7 @@ module.exports = (req, res) => {
                 });
             // Have an authorized parameter with just the IDs.
             req.session.authorized = req.session.guilds.map(guild => guild.id);
-            res.redirect('/panel/');
+            redirect(req, res, '/panel/');
         })
         .catch(err => {
             console.log(err.stack);

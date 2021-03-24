@@ -1,5 +1,8 @@
+
+const redirect = require('../redirecter');
+
 module.exports = (target) => {
-    return (_, res) => {
-        res.redirect(target);
+    return (req, res) => {
+        redirect(req, res, target);
     };
 }
