@@ -1,5 +1,6 @@
 const client = require('../oauth');
 const redirect = require('../redirecter');
+const database = require('../database');
 // Administrator or can manage guild.
 const permissions = 0x00000020;
 
@@ -24,7 +25,7 @@ module.exports = (req, res) => {
             let guilds = data[1];
             req.session.user = user;
             // Only allow the guilds in which the user has permissions.
-            req.session.guilds = guilds
+            let permGuilds = guilds
                 // Sort alphabetically first.
                 .sort((a, b) => {
                     return a.name.localeCompare(b.name);
@@ -41,9 +42,23 @@ module.exports = (req, res) => {
                     }
                     return false;
                 });
-            // Have an authorized parameter with just the IDs.
-            req.session.authorized = req.session.guilds.map(guild => guild.id);
-            redirect(req, res, '/panel/');
+            // Now check, of those, which are in the database.
+            database.getKnownGuilds(permGuilds.map(guild => guild.id))
+            .then(finalGuilds => {
+                // Only include the guilds in the database.
+                req.session.guilds = permGuilds.filter(guild => finalGuilds.includes(guild.id));
+                // Have an authorized parameter with just the IDs.
+                req.session.authorized = req.session.guilds.map(guild => guild.id);
+                redirect(req, res, '/panel/');
+            })
+            .catch(err => {
+                console.log(err.stack);
+                // We don't need to render the login because the login failed.
+                res.render('error', {
+                    title: 'SQL Error',
+                    subtitle: 'Could not retrieve guilds.'
+                });
+            });
         })
         .catch(err => {
             console.log(err.stack);
