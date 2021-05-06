@@ -52,14 +52,18 @@ module.exports = (req, res) => {
         redirect(req, res, '/panel/');
         return;
     }
-    let perms = req.session.roles.slice(0).map(role => {
-        let name = role.name;
-        role.name = 'Role: ' + name;
-        return role;
+    let perms = req.session.roles.map(role => {
+        return {
+            id: role.id,
+            name: 'Role: ' + role.name
+        };
     });
-    permissions.forEach(permissionWrapper => {
-        let name = permissionWrapper.name;
-        permissionWrapper.name = 'Permission: ' + name;
+    permissions.map(permissionWrapper => {
+        return {
+            id: permissionWrapper.id,
+            name: 'Permission: ' + permissionWrapper.name
+        };
+    }).forEach(permissionWrapper => {
         perms.push(permissionWrapper);
     });
     res.render(panelObject.template, {
