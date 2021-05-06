@@ -1,7 +1,10 @@
 extends base.pug
 
 block append head
-  link(rel="stylesheet", href="/assets/styles/panel.css")
+  link(rel='stylesheet', href='/assets/styles/panel.css')
+  link(rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bulma-switch@2.0.0/dist/css/bulma-switch.min.css')
+  script(src='https://cdn.jsdelivr.net/npm/bulma-toast@2.3.0/dist/bulma-toast.min.js') 
+  script(src="/assets/scripts/panel.js") 
   title Arraybot - Web Panel - #{portion_name}
 block site
   nav.breadcrumb.is-centered.mt-5(aria-label='breadcrumbs')
@@ -56,5 +59,5 @@ block site
         else
           li
             a(href='/panel/filterbypasses/') Filter Bypasses
-
-  block dashboard
+  section.section.forms
+    block dashboard

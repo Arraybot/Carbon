@@ -1,3 +1,54 @@
 extends panel.pug
 
 block dashboard
+  .container
+    form.form.control
+      h1.title.has-text-white.is-size-2 Basics
+      .field#form_prefix
+        label.label Prefix
+        .control
+          input.input.short(type='text' name='prefix' maxlength='32' size='32')
+        p.help.invalid.is-danger Invalid prefix (max. 32 characters).
+        p.help The prefix that will trigger Arraybot commands (slashcommands not supported).
+      h1.title.has-text-white.is-size-2 Joining the Server
+      .field#form_autorole
+        label.label Autorole
+        .control
+          span.select
+            select(name='autorole')
+              option.has-text-weight-bold(value='none') None - disable feature
+              each role in roles
+               option(value=role.id)= role.name
+        p.help This role will be given to members, after they complete membership screening (if this is enabled).
+      .field#form_ja_message
+        label.label Message
+        .control
+          textarea.textarea(type='textarea' name='ja_message' maxlength='2000' size='2000')
+        p.help.invalid.is-danger Invalid message (max. 2000 characters).
+        p.help The message to send. This may contain placeholders.
+      .field#form_ja_channel
+        label.label Channel
+        .control
+          span.select
+            select(name='ja_channel')
+              option.has-text-weight-bold(value='none') None - disable feature
+              each channel in channels
+                option(value=channel.id)= channel.name
+        p.help The channel in which to send the above join messages.
+      h1.title.has-text-white.is-size-2 Leaving the Server
+      .field#form_la_message
+        label.label Message
+        .control
+          textarea.textarea(type='textarea' name='la_message' maxlength='2000' size='2000')
+        p.help.invalid.is-danger Invalid message (max. 2000 characters).
+        p.help The message to send. This may contain placeholders.
+      .field#form_la_channel
+        label.label Channel
+        .control
+          span.select
+            select(name='la_channel')
+              option.has-text-weight-bold(value='none') None - disable feature
+              each channel in channels
+                option(value=channel.id)= channel.name
+        p.help The channel in which to send the above leave messages.
+    button.button.is-large.is-warning Save

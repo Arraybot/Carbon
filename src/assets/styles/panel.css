@@ -11,6 +11,23 @@ a.crumb:hover {
     color: var(--yellow);
 }
 
+.forms {
+    color: var(--white);
+}
+
+.label {
+    text-transform: uppercase;
+    color: var(--white);
+}
+
+.select:not(.is-multiple):not(.is-loading)::after {
+    border-color: black;
+}
+
+input.short {
+    width: 300px;
+}
+
 .tabs a {
     color: var(--white);
 }

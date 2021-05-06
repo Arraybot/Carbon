@@ -57,6 +57,8 @@ module.exports = (req, res) => {
         subtitle: 'You are modifying ' + guild.name + '.',
         name: guild.name,
         portion_link: panelObject.portionLink,
-        portion_name: panelObject.portionName
+        portion_name: panelObject.portionName,
+        channels: req.session.channels,
+        roles: req.session.roles
     });
 }
