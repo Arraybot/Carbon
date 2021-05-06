@@ -1,4 +1,5 @@
 const redirect = require('../redirecter');
+const permissions = require('../permissions');
 const dashes = [
     {
         name: '',
@@ -51,6 +52,17 @@ module.exports = (req, res) => {
         redirect(req, res, '/panel/');
         return;
     }
+    let perms = req.session.roles.slice(0).map(role => {
+        let name = role.name;
+        role.name = 'Role: ' + name;
+        return role;
+    });
+    permissions.forEach(permissionWrapper => {
+        let name = permissionWrapper.name;
+        permissionWrapper.name = 'Permission: ' + name;
+        perms.push(permissionWrapper);
+    });
+    console.log(perms);
     res.render(panelObject.template, {
         login: req.session.authorized,
         title: 'Arraybot Web Panel...',
@@ -59,6 +71,7 @@ module.exports = (req, res) => {
         portion_link: panelObject.portionLink,
         portion_name: panelObject.portionName,
         channels: req.session.channels,
-        roles: req.session.roles
+        roles: req.session.roles,
+        permissions: perms
     });
 }

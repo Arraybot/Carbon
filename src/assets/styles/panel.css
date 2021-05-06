@@ -1,6 +1,9 @@
 :root {
-    --white: hsl(0, 0%, 86%); 
+    --white: hsl(0, 0%, 86%);
+    --light: hsl(0, 0%, 71%);
     --yellow: hsl(48, 100%, 67%);
+    --dark: hsl(0, 0%, 10%);
+    --black: hsl(0, 0%, 4%);
 }
 
 a.crumb {
@@ -21,11 +24,33 @@ a.crumb:hover {
 }
 
 .select:not(.is-multiple):not(.is-loading)::after {
-    border-color: black;
+    border-color: var(--white);
 }
 
 input.short {
     width: 300px;
+}
+
+input.input {
+    color: var(--light);
+    background-color: var(--dark);
+    border-color: var(--black);
+}
+
+input.input:focus {
+    border-color: var(--yellow);
+    box-shadow: none;
+}
+
+.select select {
+    color: var(--light);
+    background-color: var(--dark);
+    border-color: var(--black);
+}
+
+.select select:focus {
+    border-color: var(--yellow);
+    box-shadow: none;
 }
 
 .tabs a {
@@ -35,4 +60,15 @@ input.short {
 .tabs li.is-active a, .tabs a:hover {
     color: var(--yellow);
     border-bottom-color: var(--yellow);
+}
+
+textarea.textarea {
+    color: var(--light);
+    background-color: var(--dark);
+    border-color: var(--black);
+}
+
+textarea.textarea:focus {
+    border-color: var(--yellow);
+    box-shadow: none;
 }

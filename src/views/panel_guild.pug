@@ -14,9 +14,9 @@ block dashboard
       .field#form_autorole
         label.label Autorole
         .control
-          span.select
+          div.select
             select(name='autorole')
-              option.has-text-weight-bold(value='none') None - disable feature
+              option.has-text-weight-bold(value='0') None - disable feature
               each role in roles
                option(value=role.id)= role.name
         p.help This role will be given to members, after they complete membership screening (if this is enabled).
@@ -29,9 +29,9 @@ block dashboard
       .field#form_ja_channel
         label.label Channel
         .control
-          span.select
+          div.select
             select(name='ja_channel')
-              option.has-text-weight-bold(value='none') None - disable feature
+              option.has-text-weight-bold(value='0') None - disable feature
               each channel in channels
                 option(value=channel.id)= channel.name
         p.help The channel in which to send the above join messages.
@@ -45,10 +45,37 @@ block dashboard
       .field#form_la_channel
         label.label Channel
         .control
-          span.select
+          div.select
             select(name='la_channel')
-              option.has-text-weight-bold(value='none') None - disable feature
+              option.has-text-weight-bold(value='0') None - disable feature
               each channel in channels
                 option(value=channel.id)= channel.name
         p.help The channel in which to send the above leave messages.
-    button.button.is-large.is-warning Save
+      h1.title.has-text-white.is-size-2 Punishments
+      .field#form_modlog
+        label.label Punishment Log
+        .control
+          div.select
+            select(name='ja_channel')
+              option.has-text-weight-bold(value='0') None - disable feature
+              each channel in channels
+                option(value=channel.id)= channel.name
+        p.help If set, this will log every punishment to the specified channel.
+      .field#form_mute_role
+        label.label Muted Role
+        .control
+          div.select
+            select(name='mute_role')
+              option.has-text-weight-bold(value='0') None - disable feature
+              each role in roles
+               option(value=role.id)= role.name
+        p.help The role that is assigned to those muted.
+      .field#form_mute_perm
+        label.label Muting Permission
+        .control
+          div.select
+            select(name='mute_permission')
+              each perm in permissions
+               option(value=perm.id)= perm.name
+        p.help The permission that allows members to mute.
+      
