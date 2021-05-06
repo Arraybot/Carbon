@@ -62,7 +62,6 @@ module.exports = (req, res) => {
         permissionWrapper.name = 'Permission: ' + name;
         perms.push(permissionWrapper);
     });
-    console.log(perms);
     res.render(panelObject.template, {
         login: req.session.authorized,
         title: 'Arraybot Web Panel...',

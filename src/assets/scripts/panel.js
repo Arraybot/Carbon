@@ -1,9 +1,33 @@
 (function() {
     window.onload = () => {
-        console.log('penis');
-        toastError();
+        let items = document.querySelectorAll('input,textarea,select');
+        for (let item of items) {
+            let fun = () => {
+                item.classList.add('changed');
+                saveButton();
+            }
+            item.onchange = fun;
+            item.onkeypress = fun;
+            item.onpaste = fun;
+        }
     }
 })();
+
+function saveButton() {
+    let button = document.getElementById('save');
+    let changed = document.getElementsByClassName('changed');
+    if (changed.length == 0) {
+        button.onclick = () => {};
+        button.disabled = true;
+    } else {
+        button.onclick = submit;
+        button.disabled = false;
+    }
+}
+
+function submit() {
+    console.log('Submitting');
+}
 
 function toastSuccess() {
     bulmaToast.toast({
