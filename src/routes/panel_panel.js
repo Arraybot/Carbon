@@ -68,9 +68,6 @@ module.exports = (req, res) => {
         name: guild.name,
         template_id: panelObject.template,
         portion_link: panelObject.portionLink,
-        portion_name: panelObject.portionName,
-        channels: [],
-        roles: [],
-        permissions: []
+        portion_name: panelObject.portionName
     });
 }

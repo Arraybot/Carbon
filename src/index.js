@@ -130,6 +130,7 @@ app.post('/ep/filter/', routeFilter.post);
 app.delete('/ep/filter/', routeFilter.delete);
 
 // General guild setting route.
+app.get('/ep/guild/', routeGuild.get);
 app.put('/ep/guild/', routeGuild.put);
 
 // Global guild information retrieval.

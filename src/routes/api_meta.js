@@ -20,6 +20,6 @@ exports.get = async (req, res) => {
     }).forEach(permissionWrapper => {
         perms.push(permissionWrapper);
     });
-    wrapper.perms = perms;
+    wrapper.permissions = perms;
     res.json(wrapper);
 };
