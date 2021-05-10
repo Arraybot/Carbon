@@ -31,7 +31,7 @@ input.short {
     width: 300px;
 }
 
-input.input {
+input.input, input.input:disabled {
     color: var(--light);
     background-color: var(--dark);
     border-color: var(--black);
@@ -42,7 +42,7 @@ input.input:focus {
     box-shadow: none;
 }
 
-.select select {
+.select select, .select select:disabled {
     color: var(--light);
     background-color: var(--dark);
     border-color: var(--black);
@@ -62,7 +62,7 @@ input.input:focus {
     border-bottom-color: var(--yellow);
 }
 
-textarea.textarea {
+textarea.textarea, textarea.textarea:disabled {
     color: var(--light);
     background-color: var(--dark);
     border-color: var(--black);

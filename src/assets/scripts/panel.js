@@ -58,3 +58,15 @@ function toastError() {
         position: 'top-center'
     });
 }
+
+/**
+ * Sends a ratelimited toast.
+ */
+function toastRatelimited() {
+    bulmaToast.toast({
+        message: 'Slow down! Try again in a few seconds.',
+        type: 'is-warning',
+        duration: 2500,
+        position: 'top-center'
+    });
+}

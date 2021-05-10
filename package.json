@@ -19,6 +19,7 @@
     "discord-oauth2": "^2.6.0",
     "eris": "^0.15.1",
     "express": "^4.17.1",
+    "express-rate-limit": "^5.2.6",
     "express-session": "^1.17.1",
     "path": "^0.12.7",
     "pug": "^3.0.2",

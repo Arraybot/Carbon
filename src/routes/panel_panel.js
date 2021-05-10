@@ -60,22 +60,6 @@ module.exports = (req, res) => {
         redirect(req, res, '/panel/');
         return;
     }
-    // Create an array of permissions from existing roles.
-    let perms = req.session.roles.map(role => {
-        return {
-            id: role.id,
-            name: 'Role: ' + role.name
-        };
-    });
-    // Add each permission to the permission array.
-    permissions.map(permissionWrapper => {
-        return {
-            id: permissionWrapper.id,
-            name: 'Permission: ' + permissionWrapper.name
-        };
-    }).forEach(permissionWrapper => {
-        perms.push(permissionWrapper);
-    });
     // Render the final panel.
     res.render(panelObject.template, {
         login: req.session.authorized,
@@ -85,8 +69,8 @@ module.exports = (req, res) => {
         template_id: panelObject.template,
         portion_link: panelObject.portionLink,
         portion_name: panelObject.portionName,
-        channels: req.session.channels,
-        roles: req.session.roles,
-        permissions: perms
+        channels: [],
+        roles: [],
+        permissions: []
     });
 }

@@ -4,8 +4,10 @@ const express = require('express');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 const bodyParser = require('body-parser');
+const rateLimit = require('express-rate-limit');
 
 // Middleware components.
+const middlewareApi = require('./middlewares/api');
 const middlewareError = require('./middlewares/error');
 const middelwareLogger = require('./middlewares/logger');
 const middlewarePanel = require('./middlewares/panel');
@@ -18,6 +20,7 @@ const routeDisabledCommands = require('./routes/api_disabled_commands');
 const routeFilter = require('./routes/api_filter');
 const routeFilterBypass = require('./routes/api_filter_bypass');
 const routeGuild = require('./routes/api_guild');
+const routeMeta = require('./routes/api_meta');
 
 // Routes - Content.
 const routeGo = require('./routes/content_go');
@@ -57,6 +60,7 @@ if (ENV === 'production') {
 }
 
 // Allow for form + JSON bodies.
+// Not actually deprecated but seems to be a TS bug.
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -77,13 +81,27 @@ app.use(session({
 // Logging middleware.
 app.use(middelwareLogger);
 
+// The not-so-strict ratelimiter: 20/10s
+let limiterLoose = rateLimit({
+    windowMs: 10000,
+    max: 20
+});
+// The stricter ratelimiter: 5/5s.
+let limiterStrict = rateLimit({
+    windowMs: 5000,
+    max: 1
+});
+
 // Add authentication middelware for the panel and endpoints.
 // They just need to have logged in to Discord to see all the servers they need, so the panel middleware is enough.
 app.use('/select/', middlewarePanel);
 // They need to see the current server (with permission) which is included in the endpoint middleware.
 app.use('/panel/', middlewareEndpoints);
 // The endpoints use the endpoint middleware.
-app.use('/ep/', middlewareEndpoints);
+app.use('/ep/', middlewareApi);
+// Apply different ratelimits.
+app.use('/ep/meta/', limiterStrict);
+app.use('/ep/', limiterLoose);
 
 // Announcement related routes.
 app.get('/ep/announcements/', routeAnnouncements.get);
@@ -113,6 +131,9 @@ app.delete('/ep/filter/', routeFilter.delete);
 
 // General guild setting route.
 app.put('/ep/guild/', routeGuild.put);
+
+// Global guild information retrieval.
+app.get('/ep/meta/', routeMeta.get);
 
 // Static content.
 app.use('/assets/', express.static(path.join(__dirname, 'assets')));
