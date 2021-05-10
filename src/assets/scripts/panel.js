@@ -63,7 +63,6 @@ function apiMeta() {
 }
 
 function apiLoadCallback(data) {
-    console.log(data);
     let inputs = document.querySelectorAll(ALL_INPUT_TYPES);
     for (input of inputs) {
         let value = data[input.name];
@@ -75,9 +74,7 @@ function apiLoadCallback(data) {
         } else {
             let index = -1;
             for (let i = 0; i < input.length; i++) {
-                console.log('comparing ' + input.options[i].value + ' to ' + value);
                 if (input.options[i].value === value) {
-                    console.log('AAAAAAAA')
                     index = i;
                     break;
                 }

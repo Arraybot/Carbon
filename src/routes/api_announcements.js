@@ -1,11 +1,11 @@
-exports.get = (res, req) => {
+exports.get = (req, res) => {
 
 };
 
-exports.post = (res, req) => {
+exports.post = (req, res) => {
 
 };
 
-exports.delete = (res, req) => {
+exports.delete = (req, res) => {
 
 };
