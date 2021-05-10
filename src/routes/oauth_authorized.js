@@ -6,6 +6,11 @@ const permissions = 0x00000020;
 
 module.exports = handle;
 
+/**
+ * Handles the OAuth2 callback.
+ * @param {Request} req The request.
+ * @param {Response} res The response.
+ */
 async function handle(req, res) {
     try {
         let code = req.query.code;
@@ -18,6 +23,7 @@ async function handle(req, res) {
             });
             return;
         }
+        // Request a token.
         let auth = await client.tokenRequest({
             scope: ['identify', 'guilds'],
             grantType: 'authorization_code',
@@ -48,13 +54,16 @@ async function handle(req, res) {
                 }
                 return false;
             });
+        // Get all known guilds.
         let known = await database.getKnownGuilds(permGuilds.map(guild => guild.id));
-        // Only include the guilds in the database.
+        // Only include the guilds in the database (have to use this since known does not contain any metadata).
         req.session.guilds = permGuilds.filter(guild => known.includes(guild.id));
         // Have an authorized parameter with just the IDs.
         req.session.authorized = req.session.guilds.map(guild => guild.id);
+        // Direct them to the server selection.
         redirect(req, res, '/select/');
     } catch (exception) {
+        // Log the error.
         console.error(exception);
         res.render('error', {
             title: 'Authorization Error',

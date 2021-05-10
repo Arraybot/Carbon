@@ -1,4 +1,5 @@
 window.onload = () => {
+    // Ensure that the burger menu works.
     const burgers = document.querySelectorAll('.navbar-burger');
     burgers.forEach(burger => {
         burger.addEventListener('click', () => {

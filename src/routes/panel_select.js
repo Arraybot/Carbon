@@ -1,3 +1,8 @@
+/**
+ * Renders the guild selection screen.
+ * @param {Request} req The request.
+ * @param {Response} res The response.
+ */
 module.exports = (req, res) => {
     res.render('select', {
         login: req.session.authorized,
