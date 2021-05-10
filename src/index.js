@@ -100,7 +100,7 @@ app.use('/panel/', middlewareEndpoints);
 // The endpoints use the endpoint middleware.
 app.use('/ep/', middlewareApi);
 // Apply different ratelimits.
-app.use('/ep/meta/', limiterStrict);
+app.use('/ep/meta/refresh', limiterStrict);
 app.use('/ep/', limiterLoose);
 
 // Announcement related routes.
@@ -134,7 +134,8 @@ app.get('/ep/guild/', routeGuild.get);
 app.put('/ep/guild/', routeGuild.put);
 
 // Global guild information retrieval.
-app.get('/ep/meta/', routeMeta.get);
+app.get('/ep/meta/refresh', routeMeta.generatorGet(false));
+app.get('/ep/meta/', routeMeta.generatorGet(true));
 
 // Static content.
 app.use('/assets/', express.static(path.join(__dirname, 'assets')));

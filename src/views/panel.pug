@@ -60,8 +60,16 @@ block site
         else
           li
             a(href='/panel/filterbypasses/') Filter Bypasses
-  section.section.forms
+  section.section.forms.pb-0
     block dashboard
-  section.section.m-0.pt-0
+  section.section.forms.pt-5
+    .container
+      .field#form_modlog
+        label.label Channel/Role/Permission Sync
+
+        p.help Sometimes, it could be that the latest entities are not in the panel. Press this button to synchronize them and load them in.
+        .control.mt-4
+          button.button.is-warning#sync Synchronize
+  section.section.m-0.pt-4
     .container
       button.button.is-medium.is-warning#save(disabled) Save

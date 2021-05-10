@@ -6,8 +6,11 @@ function apiLoad(callback) {
 
 function apiSave(data) {
     genericAjaxRequest('PUT', '/ep/guild/', data, 'save settings', () => {
-        toastSuccess();
+        toastSuccess('Settings successfully saved and applied!');
         setAllInputs(true);
         setSave(false);
+    }, () => {
+        setAllInputs(true);
+        setSave(true);
     });
 }

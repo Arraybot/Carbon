@@ -14,14 +14,20 @@ window.onload = () => {
         item.onkeypress = fun;
         item.onpaste = fun;
     }
-    apiMeta();
+    document.getElementById('sync').onclick = () => {
+        setSync(false);
+        apiMeta(false)
+    };
+    apiMeta(true);
 };
 
 /**
  * AJAX: Get all the channels, roles and permissions.
+ * @param {boolean} start True if cache can be used - enabling this also loads the rest of the data.
  */
-function apiMeta() {
-    genericAjaxRequest('GET', '/ep/meta/', null, 'load metadata', (request) => {
+function apiMeta(start) {
+    let url = start ? '/ep/meta/' : '/ep/meta/refresh';
+    genericAjaxRequest('GET', url, null, 'load metadata', (request) => {
         let status = request.status;
         if (status == 200) {
             // Load in the available settings.
@@ -53,15 +59,24 @@ function apiMeta() {
                     select.add(option);
                 }
             }
-            // Load the data.
-            apiLoad(apiLoadCallback);
-            setAllInputs(true);
+            if (start) {
+                // Load the data.
+                apiLoad(apiLoadCallback);
+                setAllInputs(true);
+            } else {
+                toastSuccess('Refreshed all entities.');
+                setSync(true);
+            }
         } else {
             toastError('Error getting channels, roles and permissions: ' + status);
         }
-    });
+    }, () => setSync(true));
 }
 
+/**
+ * Injects the data into the form.
+ * @param {object} data An object of all values.
+ */
 function apiLoadCallback(data) {
     let inputs = document.querySelectorAll(ALL_INPUT_TYPES);
     for (input of inputs) {
@@ -91,10 +106,11 @@ function apiLoadCallback(data) {
  * @param {string} method The HTTP method.
  * @param {string} url The URL.
  * @param {object} body The body. Can be null.
- * @param {Function} handle The handle callback for most things.
  * @param {string} task The task to print.
+ * @param {Function} success The success callback.
+ * @param {Function} error The error callback.
  */
-function genericAjaxRequest(method, url, body, task, handle) {
+function genericAjaxRequest(method, url, body, task, success, error) {
     let request = new XMLHttpRequest();
     request.open(method, url);
     request.onreadystatechange = function() {
@@ -103,31 +119,26 @@ function genericAjaxRequest(method, url, body, task, handle) {
             switch (request.status) {
                 case 400:
                     toastError(`Could not ${task}. Did you provide invalid data?`);
-                    setAllInputs(true);
-                    setSave(true);
+                    error();
                     break;
                 case 401:
                     toastError(`Could not ${task}, you are not logged in. Please refresh the page and log in.`);
-                    setAllInputs(true);
-                    setSave(true);
+                    error();
                     break;
                 case 403:
                     toastError(`Could not ${task}, you cannot perform this action on this server.`);
-                    setAllInputs(true);
-                    setSave(true);
+                    error();
                     break;
                 case 404:
                     toastError(`Could not ${task}, as the resource could not be found.`);
-                    setAllInputs(true);
-                    setSave(true);
+                    error();
                     break;
                 case 429:
                     toastError(`Could not ${task}, you are sending too many requests.`);
-                    setAllInputs(true);
-                    setSave(true);
+                    error();
                     break;
                 default:
-                    handle(request);
+                    success(request);
             }
         }
     }
@@ -193,11 +204,21 @@ function setSave(enabled) {
 }
 
 /**
- * Sends a success toast.
+ * Sets the sync button as enabled or disabled.
+ * @param {boolean} enabled If it should be enabled.
  */
-function toastSuccess() {
+ function setSync(enabled) {
+    let button = document.getElementById('sync');
+    button.disabled = !enabled;
+}
+
+/**
+ * Sends a success toast.
+ * @param {string} message The message.
+ */
+function toastSuccess(message) {
     bulmaToast.toast({
-        message: 'Settings successfully saved and applied!',
+        message: message,
         type: 'is-success',
         duration: 2500,
         position: 'top-center'
@@ -206,6 +227,7 @@ function toastSuccess() {
 
 /**
  * Sends an error toast.
+ * @param {string} message The message.
  */
 function toastError(message) {
     bulmaToast.toast({
