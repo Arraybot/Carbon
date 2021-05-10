@@ -9,6 +9,15 @@ module.exports = handle;
 async function handle(req, res) {
     try {
         let code = req.query.code;
+        // Check for CSRF attack.
+        if (req.query.state !== req.session.state) {
+            console.log('Possible CSRF issue: ', req.query.state, req.session.state);
+            res.render('error', {
+                title: 'Security Error',
+                subtitle: 'Your CSRF tokens did not match, so the request was denied. Try again.'
+            });
+            return;
+        }
         let auth = await client.tokenRequest({
             scope: ['identify', 'guilds'],
             grantType: 'authorization_code',

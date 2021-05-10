@@ -1,3 +1,4 @@
+const crypto = require('crypto');
 const oauth = require('../oauth');
 const redirect = require('../redirecter');
 
@@ -6,5 +7,7 @@ module.exports = (req, res) => {
         redirect(req, res, '/');
         return;
     }
-    redirect(req, res, oauth.generateAuthUrl({ scope: ['identify', 'guilds'] }));
+    let state = crypto.randomBytes(32).toString('hex');
+    req.session.state = state;
+    redirect(req, res, oauth.generateAuthUrl({ scope: ['identify', 'guilds'], state: state }));
 };
