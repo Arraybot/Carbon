@@ -14,7 +14,6 @@ module.exports = (req, res, next) => {
     }
     // Check if the target exists.
     if (!req.session.current) {
-        console.log('Selection not present');
         redirect(req, res, '/select/');
         return;
     }
