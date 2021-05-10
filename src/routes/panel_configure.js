@@ -1,5 +1,6 @@
 const bot = require('../bot');
 const redirect = require('../redirecter');
+const watchdog = require('../watchdog');
 
 /**
  * Marks which guild is currently being edited by the user.
@@ -9,13 +10,9 @@ const redirect = require('../redirecter');
 module.exports = async (req, res) => {
     let guild = req.params.server;
     // If the user has permission to edit that guild.
-    if (req.session.authorized != null && req.session.authorized.includes(guild)) {
+    if (watchdog.isAuthorized(guild)) {
         // Update the guild.
         req.session.current = guild;
-        // Fetch up-to-date guild metadata.
-        let result = await bot.guild(guild);
-        req.session.roles = result.roles;
-        req.session.channels = result.channels;
     }
     redirect(req, res, '/panel/');
 }

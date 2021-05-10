@@ -7,7 +7,7 @@ module.exports = (view, options) => {
     return (req, res) => {
         // Basic properties.
         let values = {
-            login: req.session.authorized
+            login: req.session.user
         };
         // Add the additional objects.
         Object.assign(values, options);

@@ -62,7 +62,7 @@ module.exports = (req, res) => {
     }
     // Render the final panel.
     res.render(panelObject.template, {
-        login: req.session.authorized,
+        login: req.session.user,
         title: 'Arraybot Web Panel...',
         subtitle: 'You are modifying ' + guild.name + '.',
         name: guild.name,

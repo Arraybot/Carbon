@@ -8,7 +8,7 @@
 module.exports = (err, req, res, _next) => {
     console.log(err.stack);
     res.status(500).render('error', {
-        login: req.session.authorized,
+        login: req.session.user,
         title: 'Door Stuck?!',
         subtitle: 'Internal server error. This incident has been logged.'
     });

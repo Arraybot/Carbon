@@ -1,3 +1,5 @@
+const watchdog = require('../watchdog');
+
 /**
  * Middleware component to ensure that a specific API action can only be done by authorized users.
  * @param {Request} req The request.
@@ -6,7 +8,7 @@
  */
  module.exports = (req, res, next) => {
     // If they are not authorized to perform modifications.
-    if (!req.session.authorized || !req.session.user) {
+    if (!req.session.user) {
         res.status(401).send();
         return;
     }
@@ -16,8 +18,7 @@
         return;
     }
     // Ensure that they have permission to perform this action.
-    let authorized = req.session.authorized;
-    if (!Array.isArray(authorized) || !authorized.includes(req.session.current)) {
+    if (!watchdog.isAuthorized(req, req.session.current)) {
         res.status(403).send();
         return;
     }

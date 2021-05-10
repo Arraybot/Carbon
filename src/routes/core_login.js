@@ -9,7 +9,7 @@ const redirect = require('../redirecter');
  */
 module.exports = (req, res) => {
     // If they're already logged in, ignore.
-    if (req.session.authorized) {
+    if (req.session.user) {
         redirect(req, res, '/');
         return;
     }

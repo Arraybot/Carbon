@@ -8,7 +8,7 @@ const redirect = require('../redirecter');
  */
 module.exports = (req, res, next) => {
     // If they are not authorized to perform modifications.
-    if (!req.session.authorized) {
+    if (!req.session.user) {
         redirect(req, res, '/login/');
         return;
     }

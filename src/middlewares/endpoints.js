@@ -1,4 +1,5 @@
 const redirect = require('../redirecter');
+const watchdog = require('../watchdog');
 
 /**
  * Middleware component to ensure that a specific API action can only be done by authorized users.
@@ -8,18 +9,12 @@ const redirect = require('../redirecter');
  */
 module.exports = (req, res, next) => {
     // If they are not authorized to perform modifications.
-    if (!req.session.authorized) {
+    if (!req.session.user) {
         redirect(req, res, '/login/');
         return;
     }
-    // Check if the target exists.
-    if (!req.session.current) {
-        redirect(req, res, '/select/');
-        return;
-    }
-    // Ensure that they have permission to perform this action.
-    let authorized = req.session.authorized;
-    if (!Array.isArray(authorized) || !authorized.includes(req.session.current)) {
+    // Check if the target exists and that they have permission.
+    if (!req.session.current || !watchdog.isAuthorized(req, req.session.current)) {
         redirect(req, res, '/select/');
         return;
     }

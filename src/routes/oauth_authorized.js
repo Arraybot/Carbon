@@ -1,8 +1,6 @@
 const client = require('../oauth');
 const redirect = require('../redirecter');
-const database = require('../database');
-// Administrator or can manage guild.
-const permissions = 0x00000020;
+const watchdog = require('../watchdog');
 
 module.exports = handle;
 
@@ -34,33 +32,34 @@ async function handle(req, res) {
         req.session.token = tokenValue;
         // Get the user + guilds.
         let user = await client.getUser(tokenValue);
-        let guilds = await client.getUserGuilds(tokenValue);
         req.session.user = user;
-        // Only allow the guilds in which the user has permissions.
-        let permGuilds = guilds
-            // Sort alphabetically first.
-            .sort((a, b) => {
-                return a.name.localeCompare(b.name);
-            })
-            // Filter.
-            .filter(guild => {
-                if (guild.owner) {
-                    return true;
-                }
-                // Bitwise AND should determine if the permission bit is set.
-                let numberPerms = parseInt(guild.permissions);
-                if ((numberPerms & permissions) == permissions) {
-                    return true;
-                }
-                return false;
-            });
-        // Get all known guilds.
-        let known = await database.getKnownGuilds(permGuilds.map(guild => guild.id));
-        // Only include the guilds in the database (have to use this since known does not contain any metadata).
-        req.session.guilds = permGuilds.filter(guild => known.includes(guild.id));
-        // Have an authorized parameter with just the IDs.
-        req.session.authorized = req.session.guilds.map(guild => guild.id);
-        // Direct them to the server selection.
+        // let guilds = await client.getUserGuilds(tokenValue);
+        // // Only allow the guilds in which the user has permissions.
+        // let permGuilds = guilds
+        //     // Sort alphabetically first.
+        //     .sort((a, b) => {
+        //         return a.name.localeCompare(b.name);
+        //     })
+        //     // Filter.
+        //     .filter(guild => {
+        //         if (guild.owner) {
+        //             return true;
+        //         }
+        //         // Bitwise AND should determine if the permission bit is set.
+        //         let numberPerms = parseInt(guild.permissions);
+        //         if ((numberPerms & permissions) == permissions) {
+        //             return true;
+        //         }
+        //         return false;
+        //     });
+        // // Get all known guilds.
+        // let known = await database.getKnownGuilds(permGuilds.map(guild => guild.id));
+        // // Only include the guilds in the database (have to use this since known does not contain any metadata).
+        // req.session.guilds = permGuilds.filter(guild => known.includes(guild.id));
+        // // Have an authorized parameter with just the IDs.
+        // req.session.authorized = req.session.guilds.map(guild => guild.id);
+        // // Direct them to the server selection.
+        await watchdog.validate(req);
         redirect(req, res, '/select/');
     } catch (exception) {
         // Log the error.

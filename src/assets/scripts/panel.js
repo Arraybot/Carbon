@@ -50,9 +50,9 @@ function toastSuccess() {
 /**
  * Sends an error toast.
  */
-function toastError() {
+function toastError(message) {
     bulmaToast.toast({
-        message: 'There was an error saving your settings.',
+        message: message,
         type: 'is-danger',
         duration: 2500,
         position: 'top-center'
