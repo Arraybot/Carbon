@@ -71,6 +71,7 @@ module.exports = (req, res) => {
         title: 'Arraybot Web Panel...',
         subtitle: 'You are modifying ' + guild.name + '.',
         name: guild.name,
+        template_id: panelObject.template,
         portion_link: panelObject.portionLink,
         portion_name: panelObject.portionName,
         channels: req.session.channels,

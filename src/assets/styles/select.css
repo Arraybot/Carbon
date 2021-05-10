@@ -1,5 +1,10 @@
+:root {
+    --gray: hsl(0, 0%, 21%);
+}
+
 .card {
     border-radius: 0;
+    background-color: var(--gray);
 }
 
 .card-footer {
