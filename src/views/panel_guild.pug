@@ -8,7 +8,6 @@ block dashboard
         label.label Prefix
         .control
           input.input.short(type='text' name='prefix' maxlength='32' size='32' disabled)
-        p.help.invalid.is-danger Invalid prefix (max. 32 characters).
         p.help The prefix that will trigger Arraybot commands (slashcommands not supported).
       h1.title.has-text-white.is-size-2 Joining the Server
       .field#form_autorole
@@ -22,7 +21,6 @@ block dashboard
         label.label Message
         .control
           textarea.textarea(type='textarea' name='ja_message' maxlength='2000' size='2000' disabled)
-        p.help.invalid.is-danger Invalid message (max. 2000 characters).
         p.help The message to send. This may contain placeholders.
       .field#form_ja_channel
         label.label Channel
@@ -36,7 +34,6 @@ block dashboard
         label.label Message
         .control
           textarea.textarea(type='textarea' name='la_message' maxlength='2000' size='2000' disabled)
-        p.help.invalid.is-danger Invalid message (max. 2000 characters).
         p.help The message to send. This may contain placeholders.
       .field#form_la_channel
         label.label Channel
