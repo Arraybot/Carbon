@@ -14,32 +14,32 @@ block dashboard
         label.label Autorole
         .control
           div.select
-            select(name='autorole' data-type='role' disabled)
+            select(name='join_role' data-type='role' disabled)
               option.has-text-weight-bold(value='0') None - disable feature
         p.help This role will be given to members, after they complete membership screening (if this is enabled).
       .field#form_ja_message
         label.label Message
         .control
-          textarea.textarea(type='textarea' name='ja_message' maxlength='2000' size='2000' disabled)
+          textarea.textarea(type='textarea' name='join_message' maxlength='2000' size='2000' disabled)
         p.help The message to send. This may contain placeholders.
       .field#form_ja_channel
         label.label Channel
         .control
           div.select
-            select(name='ja_channel' data-type='channel' disabled)
+            select(name='join_channel' data-type='channel' disabled)
               option.has-text-weight-bold(value='0') None - disable feature
         p.help The channel in which to send the above join messages.
       h1.title.has-text-white.is-size-2 Leaving the Server
       .field#form_la_message
         label.label Message
         .control
-          textarea.textarea(type='textarea' name='la_message' maxlength='2000' size='2000' disabled)
+          textarea.textarea(type='textarea' name='leave_message' maxlength='2000' size='2000' disabled)
         p.help The message to send. This may contain placeholders.
       .field#form_la_channel
         label.label Channel
         .control
           div.select
-            select(name='la_channel' data-type='channel' disabled)
+            select(name='leave_channel' data-type='channel' disabled)
               option.has-text-weight-bold(value='0') None - disable feature
         p.help The channel in which to send the above leave messages.
       h1.title.has-text-white.is-size-2 Punishments
@@ -47,7 +47,7 @@ block dashboard
         label.label Punishment Log
         .control
           div.select
-            select(name='modlog' data-type='channel' disabled)
+            select(name='mod_log' data-type='channel' disabled)
               option.has-text-weight-bold(value='0') None - disable feature
         p.help If set, this will log every punishment to the specified channel.
       .field#form_mute_role

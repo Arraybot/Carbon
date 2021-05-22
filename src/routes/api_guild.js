@@ -1,7 +1,10 @@
-exports.get = (req, res) => {
-    res.json({ ja_message: 'test', autorole: '388004558909210624' });
+const database = require('../database');
+
+exports.get = async (req, res) => {
+    res.json(await database.getGuild(req.session.current));
 }
 
-exports.put = (req, res) => {
-    res.send();
+exports.put = async (req, res) => {
+    await database.setGuild(req.session.current, req.body);
+    res.end();
 };
