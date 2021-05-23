@@ -38,9 +38,20 @@ html
               strong Patreon
     section.hero.is-medium.is-warning.is-bold
       .hero-body
-        p.title= title
-        p.subtitle= subtitle
+        .container.has-text-centered
+          p.title= title
+          p.subtitle= subtitle
     block site
-    footer.footer.has-background-black-bis.has-text-grey-lighter
-      .content.has-text-centered
-        span &#169; 2021 Arraybot
+    section.hero.is-dark
+      .hero-body
+        .container.has-text-centered
+          p.is-size-5
+            span.has-text-weight-bold Arraybot
+            |  was made by 
+            a(href='https://arraying.de')
+              span.has-text-weight-semibold Arraying
+            |  using 
+            a(href='https://bulma.io/')
+              span.has-text-weight-semibold Bulma CSS
+            | .
+          p.is-size-5.pt-3.has-text-weight-light (c) Copyright 2021, all rights reserved.
