@@ -1,0 +1,24 @@
+extends panel.pug
+
+//- Requires the following variables to be defined:
+//- settings: The title of the basic settings (can be empty).
+//- lists: An array of the list object for each list to use.
+//- List object format:
+//- * title: The title of the list.
+//- * type: The type of list.
+//- * help: The help text to display.
+
+block append head
+  script(src='/assets/scripts/panel_list.js')
+
+block dashboard
+  block variables
+  .container
+    form.form-control(data-listsize=list.length)#form
+      h1.title.has-text-white.is-size-2= settings
+      block dashboard_settings
+    each listed, index in list
+      h1.title.has-text-white.is-size-2= listed.title
+      .m-0(id='list-' + index, data-listtype=listed.type)
+      button.button.is-warning.is-small.mt-5.mb-5(onclick='listAdd(' + index + ', this);') Add another item
+

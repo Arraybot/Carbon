@@ -1,5 +1,4 @@
 const redirect = require('../redirecter');
-const permissions = require('../permissions');
 const dashes = [
     {
         name: '',

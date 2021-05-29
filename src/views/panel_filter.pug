@@ -1,3 +1,10 @@
-extends panel.pug
+extends panel_list.pug
 
-block dashboard
+block append head
+  script(src='/assets/scripts/panel_filter.js')
+
+block variables
+    - var settings = 'Settings';
+    - var list = [{ title: 'Filtered Messages', type: 'text', help: 'A list of filtered messages (or regular expressions if this is enabled above).' }, { title: 'Filter Bypasses', type: 'permission', help: 'A list of roles/permissions that can bypass the filter.' }];
+
+block dashboard_settings

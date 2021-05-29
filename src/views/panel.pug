@@ -1,12 +1,12 @@
 extends base.pug
 
 block append head
+  title Arraybot - Web Panel - #{portion_name}
   link(rel='stylesheet', href='/assets/styles/panel.css')
   link(rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bulma-switch@2.0.0/dist/css/bulma-switch.min.css')
+  link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css')
   script(src='https://cdn.jsdelivr.net/npm/bulma-toast@2.3.0/dist/bulma-toast.min.js') 
   script(src='/assets/scripts/panel.js')
-  script(src='/assets/scripts/' + template_id + '.js')
-  title Arraybot - Web Panel - #{portion_name}
 block site
   nav.breadcrumb.is-centered.mt-5(aria-label='breadcrumbs')
     ul
@@ -66,10 +66,12 @@ block site
     .container
       .field#form_modlog
         label.label Channel/Role/Permission Sync
-
         p.help Sometimes, it could be that the latest entities are not in the panel. Press this button to synchronize them and load them in.
         .control.mt-4
-          button.button.is-warning#sync Synchronize
+          button.button.is-warning#sync
+            span.icon
+              i.fas.fa-sync
+            span Synchronize
   section.section.m-0.pt-4
     .container
       button.button.is-medium.is-warning#save(disabled) Save

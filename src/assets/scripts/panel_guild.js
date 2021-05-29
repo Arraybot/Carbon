@@ -53,29 +53,7 @@ function apiLoad() {
         let inputs = document.querySelectorAll(ALL_INPUT_TYPES);
         // Gets all inputs.
         for (input of inputs) {
-            let value = data[input.name];
-            if (value == null) {
-                continue;
-            }
-            // Populates the input with the correct value.
-            if (input.tagName !== 'SELECT') {
-                // If it's not a select, we can set the value directly.
-                input.value = value;
-            } else {
-                // Caveat: dropdowns/selects.
-                // Kepp track of the correct index.
-                let index = -1;
-                for (let i = 0; i < input.length; i++) {
-                    if (input.options[i].value === value) {
-                        index = i;
-                        break;
-                    }
-                }
-                // Write the index.
-                if (index != -1) {
-                    input.selectedIndex = index.toString();
-                }
-            }
+            writeStatic(data, input);
         }
     });
 }

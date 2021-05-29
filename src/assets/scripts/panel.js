@@ -45,6 +45,10 @@ function apiMeta(start) {
                         toAdd = json.permissions;
                         break;
                 }
+                // Clear existing options
+                for (let i = select.options.length - 1; i >= 1; i--) {
+                    select.remove(i);
+                }
                 // Add the options.
                 for (let add of toAdd) {
                     let option = document.createElement('option');
@@ -114,6 +118,37 @@ function genericAjaxRequest(method, url, body, task, success, error) {
         request.send(JSON.stringify(body));
     } else {
         request.send();
+    }
+}
+
+/**
+ * Writes a value to a static input.
+ * @param {object} data The data for all inputs.
+ * @param {input} input The respective static input.
+ */
+function writeStatic(data, input) {
+    let value = data[input.name];
+    if (value == null) {
+        return;
+    }
+    // Populates the input with the correct value.
+    if (input.tagName !== 'SELECT') {
+        // If it's not a select, we can set the value directly.
+        input.value = value;
+    } else {
+        // Caveat: dropdowns/selects.
+        // Kepp track of the correct index.
+        let index = -1;
+        for (let i = 0; i < input.length; i++) {
+            if (input.options[i].value === value) {
+                index = i;
+                break;
+            }
+        }
+        // Write the index.
+        if (index != -1) {
+            input.selectedIndex = index.toString();
+        }
     }
 }
 
