@@ -36,12 +36,17 @@ function apiSave() {
     genericAjaxRequest('PUT', '/ep/guild/', data, 'save settings', () => {
         // Settings success, they can now change inputs again.
         toastSuccess('Settings successfully saved and applied!');
+        // Remove all the change markers.
+        let changed = document.querySelectorAll('.changed');
+        for (element of changed) {
+            element.classList.remove('changed');
+        }
         setAllInputs(true);
-        setSave(false);
+        saveButton();
     }, () => {
         // Error, they can change inputs again and try to save again.
         setAllInputs(true);
-        setSave(true);
+        saveButton();
     });
 }
 
@@ -53,7 +58,7 @@ function apiLoad() {
         let inputs = document.querySelectorAll(ALL_INPUT_TYPES);
         // Gets all inputs.
         for (input of inputs) {
-            writeStatic(data, input);
+            genericStaticWrite(data, input);
         }
     });
 }

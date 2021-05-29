@@ -13,8 +13,13 @@ function listConstructor(index) {
         return element;
     }
     if (index == 1) {
-        // TODO: do bypasses.
-        // TODO: make sure all meta types are present.
+        element = document.createElement('div');
+        element.classList.add('select');
+        let select = document.createElement('select');
+        element.appendChild(select);
+        // TODO: do name.
+        select.dataset.type = 'permission';
+        genericMetaWrite(META, select, false);
     }
     return element;
 }

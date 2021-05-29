@@ -28,7 +28,7 @@ function listAdd(index, value) {
     control1.appendChild(input);
     field.appendChild(control1);
     let button = document.createElement('button');
-    button.classList.add('button', 'is-warning');
+    button.classList.add('button', 'is-dark');
     button.onclick = (ev) => {
         listDelete(index, ev.currentTarget);
     };

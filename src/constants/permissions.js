@@ -1,3 +1,6 @@
+/**
+ * All JDA permissions.
+ */
 const permissions = [
     { id:'CREATE_INSTANT_INVITE', name: 'Create Instant Invite' },
     { id:'KICK_MEMBERS', name: 'Kick Members' },
@@ -9,7 +12,7 @@ const permissions = [
     { id:'VIEW_AUDIT_LOGS', name: 'View Audit Logs' },
     { id:'PRIORITY_SPEAKER', name: 'Priority Speaker' },
     { id:'VIEW_GUILD_INSIGHTS', name: 'View Server Insights' },
-    { id:'VIEW_CHANNEL', name: 'Read Text Channels & See Voice Channels' },
+    { id:'VIEW_CHANNEL', name: 'Read Text & See Voice Channels' },
     { id:'MESSAGE_READ', name: 'Read Messages' },
     { id:'MESSAGE_WRITE', name: 'Send Messages' },
     { id:'MESSAGE_TTS', name: 'Send TTS Messages' },

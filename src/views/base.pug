@@ -1,4 +1,4 @@
-html
+html.has-background-black-ter
   head
     block head
       meta(charset='utf-8')
@@ -8,7 +8,7 @@ html
       link(rel='stylesheet' href='/assets/styles/main.css')
       link(rel='shortcut icon' href='/assets/images/favicon.ico')
       script(src='/assets/scripts/main.js') 
-  body.main.has-background-black-ter
+  body.main
     nav.navbar.is-dark(role='navigation' aria-label='main navigation')
       .navbar-brand
         a.navbar-item(href='/')
@@ -46,16 +46,16 @@ html
           p.title= title
           p.subtitle= subtitle
     block site
-    section.hero.is-dark
+    section.hero.has-text-white
       .hero-body
         .container.has-text-centered
           p.is-size-5
             span.has-text-weight-bold Arraybot
             |  was made by 
             a(href='https://arraying.de')
-              span.has-text-weight-semibold Arraying
+              span.has-text-weight-semibold.has-text-warning Arraying
             |  using 
             a(href='https://bulma.io/')
-              span.has-text-weight-semibold Bulma CSS
+              span.has-text-weight-semibold.has-text-warning Bulma CSS
             | .
-          p.is-size-5.pt-3.has-text-weight-light (c) Copyright 2021, all rights reserved.
+          p.is-size-6.pt-3.has-text-weight-light (c) Copyright 2021, all rights reserved.

@@ -4,6 +4,11 @@
 // apiSave(void) -> Triggered when the save button is called, and saves the changed values.
 
 var ALL_INPUT_TYPES = 'input,textarea,select';
+var META;
+var SAFE_QUIT = (event) => {
+    event.preventDefault();
+    return event.returnValue = 'You have unsaved changes';
+}
 
 /**
  * What happens when the window is loaded.
@@ -28,35 +33,12 @@ function apiMeta(start) {
         if (status == 200) {
             // Load in the available settings.
             let json = JSON.parse(request.responseText);
+            // Save in cache,
+            META = json;
+            console.log(META);
             let selects = document.getElementsByTagName('select');
             for (let select of selects) {
-                // For every dropdown, populate it with the correct data.
-                let type = select.dataset.type;
-                let toAdd = [];
-                // Give it the correct data to add.
-                switch (type) {
-                    case 'channel':
-                        toAdd = json.channels;
-                        break;
-                    case 'role':
-                        toAdd = json.roles;
-                        break;
-                    case 'permission':
-                        toAdd = json.permissions;
-                        break;
-                }
-                // Clear existing options
-                for (let i = select.options.length - 1; i >= 1; i--) {
-                    select.remove(i);
-                }
-                // Add the options.
-                for (let add of toAdd) {
-                    let option = document.createElement('option');
-                    option.classList.add('option');
-                    option.value = add.id;
-                    option.innerText = add.name;
-                    select.add(option);
-                }
+                genericMetaWrite(json, select);
             }
             if (start) {
                 // Load the data.
@@ -126,7 +108,7 @@ function genericAjaxRequest(method, url, body, task, success, error) {
  * @param {object} data The data for all inputs.
  * @param {input} input The respective static input.
  */
-function writeStatic(data, input) {
+function genericStaticWrite(data, input) {
     let value = data[input.name];
     if (value == null) {
         return;
@@ -153,6 +135,45 @@ function writeStatic(data, input) {
 }
 
 /**
+ * Writes all possible meta options to a specific select dropdown.
+ * @param {object} data The data.
+ * @param {select} select The select.
+ * @param {boolean} hasDisabled True: the select has a disabled option as part of the dropdown.
+ */
+function genericMetaWrite(data, select, hasDisabled) {
+    // For every dropdown, populate it with the correct data.
+    let type = select.dataset.type;
+    let toAdd = [];
+    // Give it the correct data to add.
+    switch (type) {
+        case 'channel':
+            toAdd = data.channels;
+            break;
+        case 'role':
+            toAdd = data.roles;
+            break;
+        case 'permission':
+            toAdd = data.permissions;
+            break;
+        case 'command':
+            toAdd = data.commands;
+            break;
+    }
+    // Clear existing options
+    for (let i = select.options.length - 1; i >= (hasDisabled ? 1 : 0); i--) {
+        select.remove(i);
+    }
+    // Add the options.
+    for (let add of toAdd) {
+        let option = document.createElement('option');
+        option.classList.add('option');
+        option.value = add.id;
+        option.innerText = add.name;
+        select.add(option);
+    }
+}
+
+/**
  * Toggles the save button.
  */
 function saveButton() {
@@ -163,7 +184,7 @@ function saveButton() {
         button.disabled = true;
     } else {
         button.onclick = () => {
-            // Disable input.
+            // Disable input until callback.
             setSave(false);
             setAllInputs(false);
             // Update.
@@ -223,7 +244,7 @@ function toastError(message) {
     bulmaToast.toast({
         message: message,
         type: 'is-danger',
-        duration: 2500,
+        duration: 3000,
         position: 'top-center'
     });
 }
