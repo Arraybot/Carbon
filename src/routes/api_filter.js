@@ -9,7 +9,7 @@ exports.get = (req, res) => {
         },
         list: [
             ["dummy"],
-            ["388004558909210624"]
+            ["MANAGE_SERVER"]
         ]
     });
 };

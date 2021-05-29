@@ -118,8 +118,7 @@ database.start().then(() => {
 
     // Disabled command related routes.
     app.get('/ep/disabledcommands/', routeDisabledCommands.get);
-    app.post('/ep/disabledcommands/', routeDisabledCommands.post);
-    app.delete('/ep/disabledcommands/', routeDisabledCommands.delete);
+    app.put('/ep/disabledcommands/', routeDisabledCommands.put);
 
     // Filter routes.
     app.get('/ep/filter/', routeFilter.get);

@@ -1,3 +1,9 @@
-extends panel.pug
+extends panel_list.pug
 
-block dashboard
+block append head
+  script(src='/assets/scripts/panel_disabled_commands.js')
+
+block variables
+    - var list = [{ title: 'Disabled Commands', type: 'command', help: 'A list of build-in commands that will not work (fail without error).' }];
+
+block dashboard_settings

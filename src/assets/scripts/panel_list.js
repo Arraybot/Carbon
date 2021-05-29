@@ -26,6 +26,7 @@ function apiLoad() {
         let data = JSON.parse(request.responseText);
         let static = data.static;
         let list = data.list;
+        console.log(data)
         // Write the static values.
         let inputs = document.getElementsByClassName('static');
         // Gets all inputs.
@@ -135,7 +136,12 @@ function listAdd(index, value) {
         // Data generally expects an object, so we quickly make one.
         let data = {};
         data[inputIdentifier] = value;
-        genericStaticWrite(data, input);
+        if (!input.classList.contains('select')) {
+            genericStaticWrite(data, input);
+        } else {
+            genericStaticWrite(data, input.firstChild);
+        }
+        
         input.disabled = false;
     }
     determineSaveButton();
@@ -192,10 +198,9 @@ function listConstructSelect(name, type) {
     element.classList.add('select');
     let select = document.createElement('select');
     select.name = name;
-    // select.classList.add(`list-${index}-value`);
     select.dataset.type = type;
-    addSaveCallbacks(select);
     genericMetaWrite(META, select, false);
+    addSaveCallbacks(select);
     element.appendChild(select); 
     return element;
 } 
