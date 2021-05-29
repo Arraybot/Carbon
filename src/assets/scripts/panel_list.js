@@ -21,7 +21,21 @@ function init() {
 }
 
 function apiLoad() {
-
+    genericAjaxRequest('GET', endpoint(), null, 'get filter settings', (request) => {
+        // Gets all the values.
+        let data = JSON.parse(request.responseText);
+        let static = data.static;
+        let list = data.list;
+        // Write the static values.
+        let inputs = document.getElementsByClassName('static');
+        // Gets all inputs.
+        for (input of inputs) {
+            genericStaticWrite(static, input);
+        }
+        for (let i = 0; i < LIST_SIZE; i++) {
+            listPopulate(i, list[i]);
+        }
+    })
 }
 
 /**

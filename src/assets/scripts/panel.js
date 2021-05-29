@@ -121,7 +121,8 @@ function genericStaticWrite(data, input) {
         // Kepp track of the correct index.
         let index = -1;
         for (let i = 0; i < input.length; i++) {
-            if (input.options[i].value === value) {
+            let convertedValue = `${value}`; // JS quirk...
+            if (input.options[i].value == convertedValue) { // Use casting for compatibility with integers and booleans.
                 index = i;
                 break;
             }
