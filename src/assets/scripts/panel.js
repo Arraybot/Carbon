@@ -1,19 +1,15 @@
-var ALL_INPUT_TYPES = 'input,textarea,select';
-var META;
+// The following functions need to be implemented by each panel separately:
+// init(void) -> Actions that need to be taken during startup.
+// apiLoad(void) -> loads the data and populates the fields, respectively.
+// apiSave(void) -> Triggered when the save button is called, and saves the changed values.
 
+var ALL_INPUT_TYPES = 'input,textarea,select';
+
+/**
+ * What happens when the window is loaded.
+ */
 window.onload = () => {
-    // Detect when the forms are changed.
-    let items = document.querySelectorAll(ALL_INPUT_TYPES);
-    for (let item of items) {
-        let fun = () => {
-            item.classList.add('changed');
-            saveButton();
-        }
-        // Register the event listener for different types.
-        item.onchange = fun;
-        item.onkeypress = fun;
-        item.onpaste = fun;
-    }
+    init();
     document.getElementById('sync').onclick = () => {
         setSync(false);
         apiMeta(false)
@@ -32,7 +28,6 @@ function apiMeta(start) {
         if (status == 200) {
             // Load in the available settings.
             let json = JSON.parse(request.responseText);
-            META = json;
             let selects = document.getElementsByTagName('select');
             for (let select of selects) {
                 // For every dropdown, populate it with the correct data.
@@ -61,7 +56,7 @@ function apiMeta(start) {
             }
             if (start) {
                 // Load the data.
-                apiLoad(apiLoadCallback);
+                apiLoad();
                 setAllInputs(true);
             } else {
                 toastSuccess('Refreshed all entities.');
@@ -71,34 +66,6 @@ function apiMeta(start) {
             toastError('Error getting channels, roles and permissions: ' + status);
         }
     }, () => setSync(true));
-}
-
-/**
- * Injects the data into the form.
- * @param {object} data An object of all values.
- */
-function apiLoadCallback(data) {
-    let inputs = document.querySelectorAll(ALL_INPUT_TYPES);
-    for (input of inputs) {
-        let value = data[input.name];
-        if (value == null) {
-            continue;
-        }
-        if (input.tagName !== 'SELECT') {
-            input.value = value;
-        } else {
-            let index = -1;
-            for (let i = 0; i < input.length; i++) {
-                if (input.options[i].value === value) {
-                    index = i;
-                    break;
-                }
-            }
-            if (index != -1) {
-                input.selectedIndex = index.toString();
-            }
-        }
-    }
 }
 
 /**
@@ -164,20 +131,8 @@ function saveButton() {
             // Disable input.
             setSave(false);
             setAllInputs(false);
-            // Start constructing the data.
-            let data = {};
-            // Get all input fields.
-            let inputs = document.querySelectorAll(ALL_INPUT_TYPES);
-            for (input of inputs) {
-                // Ignore those unchanged.
-                if (!input.classList.contains('changed')) {
-                    continue;
-                }
-                // Append to payload.
-                data[input.name] = input.value;
-            }
             // Update.
-            apiSave(data);
+            apiSave();
         };
         button.disabled = false;
     }
