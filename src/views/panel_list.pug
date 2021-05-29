@@ -1,7 +1,8 @@
 extends panel.pug
 
 //- Requires the following variables to be defined:
-//- settings: The title of the basic settings (can be empty).
+//- settings_title: The title of the basic settings (can be empty).
+//- settings_subtitle: The subtitle of the basic setting (can be empty).
 //- lists: An array of the list object for each list to use.
 //- List object format:
 //- * title: The title of the list.
@@ -15,10 +16,12 @@ block dashboard
   block variables
   .container
     form.form-control(data-listsize=list.length)#form
-      h1.title.has-text-white.is-size-2= settings
+      h1.title.has-text-white.is-size-2= settings_title
+      h2.subtitle.has-text-grey-light= settings_subtitle
       block dashboard_settings
     each listed, index in list
       h1.title.has-text-white.is-size-2= listed.title
+      h2.subtitle.has-text-grey-light= listed.help
       .m-0(id='list-' + index, data-listtype=listed.type)
       button.button.is-warning.is-small.mt-5.mb-5(onclick='listAdd(' + index + ', this);') Add another item
 

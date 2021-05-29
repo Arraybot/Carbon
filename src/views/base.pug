@@ -4,6 +4,7 @@ html
       meta(charset='utf-8')
       meta(name='viewport' content='width=device-width, initial-scale=1')
       link(rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css')
+      link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css')
       link(rel='stylesheet' href='/assets/styles/main.css')
       link(rel='shortcut icon' href='/assets/images/favicon.ico')
       script(src='/assets/scripts/main.js') 
@@ -35,7 +36,10 @@ html
             else
               a.button.is-light(href='/login/') Log in
             a.button.is-warning(href='https://www.patreon.com/arraying')
-              strong Patreon
+              span.icon
+                i.fab.fa-patreon
+              span
+                strong Patreon
     section.hero.is-medium.is-warning.is-bold
       .hero-body
         .container.has-text-centered

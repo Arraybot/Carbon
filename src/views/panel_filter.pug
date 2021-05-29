@@ -4,7 +4,8 @@ block append head
   script(src='/assets/scripts/panel_filter.js')
 
 block variables
-    - var settings = 'Settings';
+    - var settings_title = 'Settings';
+    - var settings_subtitle = 'Here, you can control all behaviour related to the chat filter.';
     - var list = [{ title: 'Filtered Messages', type: 'text', help: 'A list of filtered messages (or regular expressions if this is enabled above).' }, { title: 'Filter Bypasses', type: 'permission', help: 'A list of roles/permissions that can bypass the filter.' }];
 
 block dashboard_settings
