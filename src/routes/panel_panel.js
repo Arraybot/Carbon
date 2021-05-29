@@ -29,12 +29,6 @@ const dashes = [
         template: 'panel_filter',
         portionLink: 'filter/',
         portionName: 'Filter'
-    },
-    {
-        name: 'filterbypasses',
-        template: 'panel_filterbypasses',
-        portionLink: 'filterbypasses/',
-        portionName: 'Filter Bypasses'
     }
 ];
 
