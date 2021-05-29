@@ -19,7 +19,6 @@ const routeAnnouncements = require('./routes/api_announcements');
 const routeCustomCommands = require('./routes/api_custom_commands');
 const routeDisabledCommands = require('./routes/api_disabled_commands');
 const routeFilter = require('./routes/api_filter');
-const routeFilterBypass = require('./routes/api_filter_bypass');
 const routeGuild = require('./routes/api_guild');
 const routeMeta = require('./routes/api_meta');
 
@@ -122,15 +121,9 @@ database.start().then(() => {
     app.post('/ep/disabledcommands/', routeDisabledCommands.post);
     app.delete('/ep/disabledcommands/', routeDisabledCommands.delete);
 
-    // Filter bypass routes.
-    app.get('/ep/filterbypass/', routeFilterBypass.get);
-    app.post('/ep/filterbypass/', routeFilterBypass.get);
-    app.delete('/ep/filterbypass/', routeFilterBypass.get);
-
     // Filter routes.
     app.get('/ep/filter/', routeFilter.get);
-    app.post('/ep/filter/', routeFilter.post);
-    app.delete('/ep/filter/', routeFilter.delete);
+    app.put('/ep/filter/', routeFilter.put);
 
     // General guild setting route.
     app.get('/ep/guild/', routeGuild.get);

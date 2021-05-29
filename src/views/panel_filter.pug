@@ -6,6 +6,43 @@ block append head
 block variables
     - var settings_title = 'Settings';
     - var settings_subtitle = 'Here, you can control all behaviour related to the chat filter.';
-    - var list = [{ title: 'Filtered Messages', type: 'text', help: 'A list of filtered messages (or regular expressions if this is enabled above).' }, { title: 'Filter Bypasses', type: 'permission', help: 'A list of roles/permissions that can bypass the filter.' }];
+    - var list = [{ title: 'Filter Rules', type: 'text', help: 'A list of filtered phrases (or regular expressions if this is enabled above).' }, { title: 'Filter Bypasses', type: 'permission', help: 'A list of roles/permissions that can bypass the above rules.' }];
 
 block dashboard_settings
+  .field
+    label.label Enabled
+    .control
+      div.select
+        select.static(name='enabled' disabled)
+          option(value='false') No - the chat filter is inactive
+          option(value='true') Yes - the chat filter is active
+    p.help Whether or not the chat filter should be enabled in the server.
+  .field
+    label.label Use RegEx
+    .control
+      div.select
+        select.static(name='regex' disabled)
+          option(value='false') No - treat rules normally
+          option(value='true') Yes - treat rules as regular expressions
+    p.help Enabled regular expression mode. Do not use this if you don't know what this does.
+  .field
+    label.label Silent Mode
+    .control
+      div.select
+        select.static(name='silent' disabled)
+          option(value='false') Disabled - violations will notify the user
+          option(value='true') Enabled - messages will be deleted silently
+    p.help Whether users should be told that their message was removed for violating the chat filter.
+  .field
+    label.label Sending Messages
+    .control
+      div.select
+        select.static(name='private' disabled)
+          option(value='false') Notify the user in the channel
+          option(value='true') Notify the user in DM
+    p.help When the filter is not on silent mode: where to send the violation message.
+  .field
+    label.label Message
+    .control
+        textarea.textarea.static(type='textarea' name='message' maxlength='2000' size='2000' disabled)
+    p.help When the filter is not on silent mode: what message to send. Placeholders are supported.

@@ -35,7 +35,6 @@ function apiMeta(start) {
             let json = JSON.parse(request.responseText);
             // Save in cache,
             META = json;
-            console.log(META);
             let selects = document.getElementsByTagName('select');
             for (let select of selects) {
                 genericMetaWrite(json, select);
@@ -158,6 +157,9 @@ function genericMetaWrite(data, select, hasDisabled) {
         case 'command':
             toAdd = data.commands;
             break;
+        default:
+            // We clearly should not be modifying this.
+            return;
     }
     // Clear existing options
     for (let i = select.options.length - 1; i >= (hasDisabled ? 1 : 0); i--) {
@@ -170,27 +172,6 @@ function genericMetaWrite(data, select, hasDisabled) {
         option.value = add.id;
         option.innerText = add.name;
         select.add(option);
-    }
-}
-
-/**
- * Toggles the save button.
- */
-function saveButton() {
-    let button = document.getElementById('save');
-    let changed = document.getElementsByClassName('changed');
-    if (changed.length == 0) {
-        button.onclick = () => {};
-        button.disabled = true;
-    } else {
-        button.onclick = () => {
-            // Disable input until callback.
-            setSave(false);
-            setAllInputs(false);
-            // Update.
-            apiSave();
-        };
-        button.disabled = false;
     }
 }
 

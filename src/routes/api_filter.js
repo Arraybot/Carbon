@@ -1,11 +1,7 @@
 exports.get = (req, res) => {
-
+    res.end();
 };
 
-exports.post = (req, res) => {
-
-};
-
-exports.delete = (req, res) => {
-
+exports.put = (req, res) => {
+    res.end();
 };

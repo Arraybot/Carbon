@@ -16,6 +16,19 @@ function init() {
     }
 }
 
+function apiLoad() {
+    // Sends the request.
+    genericAjaxRequest('GET', '/ep/guild/', null, 'get settings', (request) => {
+        // Gets all the values.
+        let data = JSON.parse(request.responseText);
+        let inputs = document.querySelectorAll(ALL_INPUT_TYPES);
+        // Gets all inputs.
+        for (input of inputs) {
+            genericStaticWrite(data, input);
+        }
+    });
+}
+
 /**
  * Gets all changed input types, get the changed ones, and send a request for those.
  */
@@ -50,15 +63,22 @@ function apiSave() {
     });
 }
 
-function apiLoad() {
-    // Sends the request.
-    genericAjaxRequest('GET', '/ep/guild/', null, 'get settings', (request) => {
-        // Gets all the values.
-        let data = JSON.parse(request.responseText);
-        let inputs = document.querySelectorAll(ALL_INPUT_TYPES);
-        // Gets all inputs.
-        for (input of inputs) {
-            genericStaticWrite(data, input);
-        }
-    });
+/**
+ * Toggles the save button.
+ */
+ function saveButton() {
+    let button = document.getElementById('save');
+    let changed = document.getElementsByClassName('changed');
+    if (changed.length == 0) {
+        button.onclick = () => {};
+        button.disabled = true;
+    } else {
+        button.onclick = () => {
+            // Disable input until callback.
+            setAllInputs(false);
+            // Update.
+            apiSave();
+        };
+        button.disabled = false;
+    }
 }
