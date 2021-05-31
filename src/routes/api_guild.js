@@ -1,10 +1,19 @@
 const database = require('../database');
 
 exports.get = async (req, res) => {
-    res.json(await database.getGuild(req.session.current));
+    try {
+        res.json(await database.getGuild(req.session.current));
+    } catch (err) {
+        console.log(err);
+        res.status(500).end();
+    }
 }
 
 exports.put = async (req, res) => {
-    await database.setGuild(req.session.current, req.body);
-    res.end();
+    try {
+        await database.setGuild(req.session.current, req.body);
+    } catch (error) {
+        console.log(error);
+        res.status(500).end();
+    }
 };

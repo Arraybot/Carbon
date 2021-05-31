@@ -89,6 +89,10 @@ function genericAjaxRequest(method, url, body, task, success, error) {
                     toastError(`Could not ${task}, you are sending too many requests.`);
                     error();
                     break;
+                case 500:
+                    toastError(`Could not ${task}, internal server error.`);
+                    error();
+                    break;
                 default:
                     success(request);
             }
