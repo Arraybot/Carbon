@@ -26,7 +26,6 @@ function apiLoad() {
         let data = JSON.parse(request.responseText);
         let static = data.static;
         let list = data.list;
-        console.log(data)
         // Write the static values.
         let inputs = document.getElementsByClassName('static');
         // Gets all inputs.
