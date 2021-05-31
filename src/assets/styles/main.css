@@ -12,6 +12,10 @@ body > footer {
     margin-top: auto;
 }
 
+.card-footer {
+    border-top: none;
+}
+
 .navbar-dropdown.has-background-dark {
     border-top-color: var(--gray);
 }
