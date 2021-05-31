@@ -10,6 +10,8 @@ module.exports = {
     getKnownGuilds: getKnownGuilds,
     getGuild: getGuild,
     setGuild: setGuild,
+    getDisabledCommands: getDisabledCommands,
+    setDisabledCommands: setDisabledCommands,
     getFilter: getFilter,
     setFilter: setFilter
 };
@@ -117,11 +119,11 @@ async function getFilter(id) {
         response.static.silent = settingsRow.silent;
         response.static.private = settingsRow.private;
         response.static.message = settingsRow.message;
-        let rules = await client.query('SELECT * FROM filter_rules WHERE id = $1;', [id]);
+        let rules = await client.query('SELECT rule FROM filter_rules WHERE id = $1;', [id]);
         let rulesArray = [];
         rules.rows.forEach(row => rulesArray.push(row.rule));
         response.list.push(rulesArray);
-        let bypasses = await client.query('SELECT * FROM filter_bypasses WHERE id = $1;', [id]);
+        let bypasses = await client.query('SELECT bypass FROM filter_bypasses WHERE id = $1;', [id]);
         let bypassesArray = [];
         bypasses.rows.forEach(row => bypassesArray.push(row.bypass));
         response.list.push(bypassesArray);
@@ -169,6 +171,56 @@ async function setFilter(id, data) {
         }
         if (Array.isArray(data.delete0)) {
             await del(data.delete1, 'filter_bypasses', 'bypass');
+        }
+        await client.query('COMMIT;');
+    } catch (error) {
+        await client.query('ROLLBACK;');
+        throw error;
+    } finally {
+        client.release();
+    }
+}
+
+/**
+ * Gets all the disabled commands in guild.
+ * @param {*} id The ID.
+ */
+async function getDisabledCommands(id) {
+    let response = {
+        static: {},
+        list: []
+    };
+    const client = await pool.connect();
+    try {
+        await client.query('BEGIN;');
+        let disabled = await client.query('SELECT name FROM disabled_commands WHERE id = $1;', [id]);
+        let disabledArray = [];
+        disabled.rows.forEach(row => disabledArray.push(row.name));
+        response.list.push(disabledArray);
+        await client.query('COMMIT;');
+    } catch (error) {
+        await client.query('ROLLBACK;');
+        throw error;
+    } finally {
+        client.release();
+    }
+    return response;
+}
+
+/**
+ * Updates the disabled commands in a guild.
+ * @param {number} id The ID.
+ * @param {object} data A key-value object with all data.
+ */
+async function setDisabledCommands(id, data) {
+    const client = await pool.connect();
+    try {
+        await client.query('BEGIN;');
+        if (Array.isArray(data.add0)) {
+           data.add0.forEach(async toAdd => await client.query('INSERT INTO disabled_commands VALUES ($1, $2);', [id, toAdd]));
+        }
+        if (Array.isArray(data.delete0)) {
+            data.delete0.forEach(async toDelete => await client.query('DELETE FROM disabled_commands WHERE id = $1 AND name = $2;', [id, toDelete]));
         }
         await client.query('COMMIT;');
     } catch (error) {
