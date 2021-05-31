@@ -17,9 +17,8 @@ const middlewareEndpoints = require('./middlewares/endpoints');
 // Routes - API.
 const routeAnnouncements = require('./routes/api_announcements');
 const routeCustomCommands = require('./routes/api_custom_commands');
-const routeDisabledCommands = require('./routes/api_disabled_commands');
-const routeFilter = require('./routes/api_filter');
 const routeGuild = require('./routes/api_guild');
+const routeList = require('./routes/api_list');
 const routeMeta = require('./routes/api_meta');
 
 // Routes - Content.
@@ -117,12 +116,12 @@ database.start().then(() => {
     app.delete('/ep/customcommands/', routeCustomCommands.delete);
 
     // Disabled command related routes.
-    app.get('/ep/disabledcommands/', routeDisabledCommands.get);
-    app.put('/ep/disabledcommands/', routeDisabledCommands.put);
+    app.get('/ep/disabledcommands/', routeList.get(database.getDisabledCommands));
+    app.put('/ep/disabledcommands/', routeList.put(database.setDisabledCommands));
 
     // Filter routes.
-    app.get('/ep/filter/', routeFilter.get);
-    app.put('/ep/filter/', routeFilter.put);
+    app.get('/ep/filter/', routeList.get(database.getFilter));
+    app.put('/ep/filter/', routeList.put(database.setFilter));
 
     // General guild setting route.
     app.get('/ep/guild/', routeGuild.get);
