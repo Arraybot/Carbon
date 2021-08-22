@@ -1,6 +1,7 @@
 const { Pool } = require('pg');
 const pool = new Pool();
 const validator = require('validator');
+const defaults = require('./defaults');
 
 module.exports = {
     start: async () => {
@@ -58,7 +59,7 @@ async function getGuild(id) {
     try {
         const result = await client.query('SELECT * FROM guilds WHERE id = $1;', [id]);
         if (result.rowCount == 0) {
-            return {};
+            return defaults.guild;
         }
         return result.rows[0];
     } finally {
@@ -106,7 +107,7 @@ async function setGuild(id, payload) {
  */
 async function getFilter(id) {
     let response = {
-        static: {},
+        static: defaults.filter,
         list: []
     };
     const client = await pool.connect();
