@@ -35,3 +35,4 @@ These are the environment variables required to run the application properly:
 * `GO_DOCS`: The URL for the documentation
 * `GO_INVITE`: The URL to invite the bot
 * `GO_SERVER`: The URL to join the bot server
+* `ADMINS`: A list of semicolon separated admin user IDs.

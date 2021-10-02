@@ -1,6 +1,8 @@
 const client = require('./oauth');
 const database = require('./database');
 const nodeCache = require('node-cache');
+// A list of all admin IDs.
+const ADMINS = process.env.ADMINS || '';
 // Administrator or can manage guild.
 const permissions = 0x00000020;
 
@@ -37,6 +39,11 @@ async function validate(req) {
         })
         // Filter.
         .filter(guild => {
+            // If they are an admin, give permission.
+            let admins = ADMINS.split(";");
+            if (req.session.user.id && admins.includes(req.session.user.id)) {
+                return true;
+            }
             if (guild.owner) {
                 return true;
             }
