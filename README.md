@@ -22,6 +22,7 @@ Data:
 These are the environment variables required to run the application properly:
 * `ENV`: The environment, `development` or `production`
 * `PORT`: The port to expose the HTTP server on
+* `PORT_MONITOR`: The port the monitor HTTP server runs on
 * `SECRET`: A secret used to generate session IDs
 * `CLIENT_ID`: the applicantion's client ID
 * `CLIENT_SECRET`: the application's client secret
@@ -35,4 +36,4 @@ These are the environment variables required to run the application properly:
 * `GO_DOCS`: The URL for the documentation
 * `GO_INVITE`: The URL to invite the bot
 * `GO_SERVER`: The URL to join the bot server
-* `ADMINS`: A list of semicolon separated admin user IDs.
+* `ADMINS`: A list of semicolon separated admin user IDs

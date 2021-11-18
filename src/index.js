@@ -6,6 +6,7 @@ const FileStore = require('session-file-store')(session);
 const bodyParser = require('body-parser');
 const rateLimit = require('express-rate-limit');
 const database = require('./database');
+const monitor = require('./monitor');
 
 // Middleware components.
 const middlewareApi = require('./middlewares/api');
@@ -161,9 +162,13 @@ database.start().then(() => {
     // Set the error handler after everything.
     app.use(middlewareError);
 
-    app.listen(PORT, () => {
+    // Listen.
+    let handle = app.listen(PORT, () => {
         console.log('Listening on port ' + PORT);
     });
+
+    // Shut down.
+    monitor(app, handle);
 })
 .catch(error => {
     console.log('Could not connect to database!');

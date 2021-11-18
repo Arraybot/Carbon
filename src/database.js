@@ -8,6 +8,9 @@ module.exports = {
         const client = await pool.connect();
         client.release();
     },
+    stop: async () => {
+        await pool.end();
+    },
     getKnownGuilds: getKnownGuilds,
     getGuild: getGuild,
     setGuild: setGuild,
