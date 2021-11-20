@@ -1,7 +1,7 @@
 const eris = require('eris');
-const TOKEN = process.env.TOKEN || 'sellotape';
+const BOT_TOKEN = process.env.BOT_TOKEN || 'sellotape';
 
-const client = new eris('Bot ' + TOKEN, {
+const client = new eris('Bot ' + BOT_TOKEN, {
     restMode: true
 });
 

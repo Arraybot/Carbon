@@ -2,15 +2,15 @@
 const DiscordOAuth2 = require('discord-oauth2');
 
 // Environment variables.
-const CLIENT_ID = process.env.CLIENT_ID || 'abc';
-const CLIENT_SECRET = process.env.CLIENT_SECRET || 'def';
+const APP_ID = process.env.APP_ID || '123';
+const APP_SECRET = process.env.APP_SECRET || 'def';
 const REDIRECT = process.env.REDIRECT || 'http://localhost/authorized';
 
 // Create the OAuth2 client.
 const client = new DiscordOAuth2({
     version: 'v8',
-    clientId: CLIENT_ID,
-    clientSecret: CLIENT_SECRET,
+    clientId: APP_ID,
+    clientSecret: APP_SECRET,
     redirectUri: REDIRECT
 });
 

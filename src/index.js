@@ -39,8 +39,8 @@ const routePanel = require('./routes/panel_panel');
 const routeSelect = require('./routes/panel_select');
 
 // Environment variables.
-const PORT = process.env.PORT || 80;
-const SECRET = process.env.SECRET || 'apple sauce';
+const PORT_PANEL = process.env.PORT_PANEL || 80;
+const COOKIE_SECRET = process.env.COOKIE_SECRET || 'apple sauce';
 const ENV = process.env.NODE_ENV || 'development';
 const GO_DOCS = process.env.GO_DOCS || '/';
 const GO_INVITE = process.env.GO_INVITE || '/';
@@ -72,7 +72,7 @@ database.start().then(() => {
             logFn: () => {} // Disable logging.
         }),
         name: 'sid',
-        secret: SECRET,
+        secret: COOKIE_SECRET,
         resave: true,
         saveUninitialized: false,
         cookie: {
@@ -163,8 +163,8 @@ database.start().then(() => {
     app.use(middlewareError);
 
     // Listen.
-    let handle = app.listen(PORT, () => {
-        console.log('Listening on port ' + PORT);
+    let handle = app.listen(PORT_PANEL, () => {
+        console.log('Listening on port ' + PORT_PANEL);
     });
 
     // Shut down.
