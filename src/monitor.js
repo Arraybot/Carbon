@@ -19,8 +19,8 @@ module.exports = (app, handler) => {
             connected: connections.size
         });
     });
-    // POST: Kills the server.
-    monitor.post('/', (_, res) => {
+    // DELETE: Kills the server.
+    monitor.delete('/', (_, res) => {
         console.log('Received shutdown signal');
         res.status(204).send();
         // Make sure to use another event loop!
