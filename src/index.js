@@ -155,7 +155,7 @@ database.start().then(() => {
 
     // Index page.
     app.get('/', routeRender('index', {
-        title: 'Welcome to 2021...',
+        title: 'Welcome to 2022...',
         subtitle: 'It\'s time to give Arraybot a new look.'
     }));
 
