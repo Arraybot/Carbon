@@ -6,11 +6,11 @@ block dashboard
   .container
     form.form.control
       h1.title.has-text-white.is-size-2 Basics
-      .field#form_prefix
-        label.label Prefix
+      .field#form_guide
+        label.label Guide
         .control
-          input.input.short(type='text' name='prefix' maxlength='32' size='32' disabled)
-        p.help The prefix that will trigger Arraybot commands (slashcommands not supported).
+          textarea.textarea(type='textarea' name='guide' maxlength='2000' size='2000' disabled)
+        p.help The text users will see when they execute the guide command. This may contain placeholders.
       h1.title.has-text-white.is-size-2 Joining the Server
       .field#form_autorole
         label.label Autorole

@@ -12,6 +12,7 @@ exports.get = async (req, res) => {
 exports.put = async (req, res) => {
     try {
         await database.setGuild(req.session.current, req.body);
+        res.end()
     } catch (err) {
         console.log(err);
         res.status(500).end();

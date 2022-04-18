@@ -57,6 +57,7 @@ function apiSave() {
         setAllInputs(true);
         saveButton();
     }, () => {
+        toastError('Settings not successfully saved! Try again.')
         // Error, they can change inputs again and try to save again.
         setAllInputs(true);
         saveButton();

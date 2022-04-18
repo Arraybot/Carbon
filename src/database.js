@@ -30,10 +30,10 @@ pool.on('error', (err, _) => {
 //
 
 const guildColumns = [
-    'prefix', 
     'join_role', 'join_channel', 'join_message',
     'leave_channel', 'leave_message',
-    'mod_log', 'mute_role', 'mute_permission'
+    'mod_log', 'mute_role', 'mute_permission',
+    'guide'
 ];
 
 /**
@@ -79,7 +79,7 @@ async function getGuild(id) {
  */
 async function setGuild(id, payload) {
     let values = [];
-    let query = 'UPDATE guilds SET '
+    let query = 'UPDATE guilds SET ';
     let counter = 0;
     guildColumns.forEach(column => {
         let value = payload[column];

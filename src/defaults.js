@@ -4,7 +4,7 @@
  */
 
 exports.guild = {
-    prefix: '//',
+    guide: '',
     join_role: -1,
     join_channel: -1,
     join_message: '',
