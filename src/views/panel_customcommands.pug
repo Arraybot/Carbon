@@ -1,3 +1,10 @@
 extends panel.pug
 
+block append head
+  script(src='/assets/scripts/panel_custom_commands.js')
+
 block dashboard
+  block variables
+  .container
+    form.form-control#form
+      h1.title.has-text-white.is-size-2 Custom Commands

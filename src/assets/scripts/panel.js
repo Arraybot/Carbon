@@ -15,10 +15,13 @@ var SAFE_QUIT = (event) => {
  */
 window.onload = () => {
     init();
-    document.getElementById('sync').onclick = () => {
-        setSync(false);
-        apiMeta(false)
-    };
+    let sync = document.getElementById('sync');
+    if (sync != null) {
+        sync.onclick = () => {
+            setSync(false);
+            apiMeta(false)
+        };
+    }
     apiMeta(true);
 };
 
@@ -206,7 +209,9 @@ function setSave(enabled) {
  */
  function setSync(enabled) {
     let button = document.getElementById('sync');
-    button.disabled = !enabled;
+    if (button != null) {
+        button.disabled = !enabled;
+    }
 }
 
 /**

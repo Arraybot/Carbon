@@ -4,25 +4,29 @@ const dashes = [
         name: '',
         template: 'panel_guild',
         portionLink: '/',
-        portionName: 'Settings'
+        portionName: 'Settings',
+        renderSync: true
     },
     {
         name: 'customcommands',
         template: 'panel_customcommands',
         portionLink: 'customcommands/',
-        portionName: 'Custom Commands'
+        portionName: 'Custom Commands',
+        renderSync: false
     },
     {
         name: 'disabledcommands',
         template: 'panel_disabledcommands',
         portionLink: 'disabledcommands/',
-        portionName: 'Disabled Commands'
+        portionName: 'Disabled Commands',
+        renderSync: false
     },
     {
         name: 'filter',
         template: 'panel_filter',
         portionLink: 'filter/',
-        portionName: 'Filter'
+        portionName: 'Filter',
+        renderSync: true
     }
 ];
 
@@ -55,6 +59,7 @@ module.exports = (req, res) => {
         name: guild.name,
         template_id: panelObject.template,
         portion_link: panelObject.portionLink,
-        portion_name: panelObject.portionName
+        portion_name: panelObject.portionName,
+        render_sync: panelObject.renderSync
     });
 }

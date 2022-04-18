@@ -47,16 +47,17 @@ block site
             a(href='/panel/filter/') Filter
   section.section.forms.pb-0
     block dashboard
-  section.section.forms.pt-5
-    .container
-      .field#form_modlog
-        label.label Channel/Role/Permission Sync
-        p.help Sometimes, it could be that the latest entities are not in the panel. Press this button to synchronize them and load them in.
-        .control.mt-4
-          button.button.is-warning#sync
-            span.icon
-              i.fas.fa-sync
-            span Synchronize
+  if render_sync
+    section.section.forms.pt-5
+      .container
+        .field#form_sync
+          label.label Channel/Role/Permission Sync
+          p.help Sometimes, it could be that the latest entities are not in the panel. Press this button to synchronize them and load them in.
+          .control.mt-4
+            button.button.is-warning#sync
+              span.icon
+                i.fas.fa-sync
+              span Synchronize
   section.section.m-0.pt-4
     .container
       button.button.is-medium.is-warning#save(disabled) Save
