@@ -16,7 +16,6 @@ const middlewarePanel = require('./middlewares/panel');
 const middlewareEndpoints = require('./middlewares/endpoints');
 
 // Routes - API.
-const routeAnnouncements = require('./routes/api_announcements');
 const routeCustomCommands = require('./routes/api_custom_commands');
 const routeGuild = require('./routes/api_guild');
 const routeList = require('./routes/api_list');
@@ -104,11 +103,6 @@ database.start().then(() => {
     // Apply different ratelimits.
     app.use('/ep/meta/refresh', limiterStrict);
     app.use('/ep/', limiterLoose);
-
-    // Announcement related routes.
-    app.get('/ep/announcements/', routeAnnouncements.get);
-    app.post('/ep/announcements/', routeAnnouncements.post);
-    app.delete('/ep/announcements/', routeAnnouncements.delete);
 
     // Custom command related routes.
     app.get('/ep/customcommands/', routeCustomCommands.get);

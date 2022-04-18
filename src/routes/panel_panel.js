@@ -7,12 +7,6 @@ const dashes = [
         portionName: 'Settings'
     },
     {
-        name: 'announcements',
-        template: 'panel_announcements',
-        portionLink: 'announcements/',
-        portionName: 'Announcements'
-    },
-    {
         name: 'customcommands',
         template: 'panel_customcommands',
         portionLink: 'customcommands/',
