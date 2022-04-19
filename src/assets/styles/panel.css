@@ -3,7 +3,21 @@
     --light: hsl(0, 0%, 71%);
     --yellow: hsl(48, 100%, 67%);
     --dark: hsl(0, 0%, 10%);
+    --gray: hsl(0, 0%, 21%);
     --black: hsl(0, 0%, 4%);
+}
+
+.card {
+    border-radius: 0;
+    background-color: var(--gray);
+}
+
+.card-footer {
+    border: none;
+}
+
+.card-footer-item {
+    border-right: none !important;
 }
 
 a.crumb {
@@ -42,6 +56,10 @@ input.input:focus {
     box-shadow: none;
 }
 
+input::placeholder {
+    color: var(--light) !important;
+}
+
 .select select, .select select:disabled {
     color: var(--light);
     background-color: var(--dark);
@@ -60,6 +78,10 @@ input.input:focus {
 .tabs li.is-active a, .tabs a:hover {
     color: var(--yellow);
     border-bottom-color: var(--yellow);
+}
+
+table.table td {
+    border-color: var(--black);
 }
 
 textarea.textarea, textarea.textarea:disabled {

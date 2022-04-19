@@ -8,3 +8,28 @@ block dashboard
   .container
     form.form-control#form
       h1.title.has-text-white.is-size-2 Custom Commands
+      .columns.is-multiline
+        each custom in custom_commands
+          .column.is-one-third(id='card-' + custom.hash)
+            .card
+              .card-content.has-background-black-bis
+                h2.title.has-text-white= custom.name
+                h3.subtitle.has-text-grey-light= custom.description
+              footer.card-footer.has-background-black
+                .card-footer-item
+                  a.button.is-warning(href= '/panel/customcommand?name=' + custom.url)
+                    span.icon
+                      i.fas.fa-wrench
+                    span Make changes
+                .card-footer-item
+                  button.button.is-dark.delete-button(data-refers= custom.hash)
+                    span.icon
+                      i.fas.fa-trash
+                    span Delete command
+  .container
+    field.has-addons#form_new
+      label.label New custom command
+      .control.mt-4
+        input.input.short(type='text' name='name' maxlength='32' size='32' placeholder='Command name...')
+        button.button.is-warning#new Create
+        

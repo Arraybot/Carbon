@@ -105,10 +105,10 @@ database.start().then(() => {
     app.use('/ep/', limiterLoose);
 
     // Custom command related routes.
-    app.get('/ep/customcommands/', routeCustomCommands.get);
+    app.get('/ep/customcommands/:name/', routeCustomCommands.get);
     app.post('/ep/customcommands/', routeCustomCommands.post);
-    app.put('/ep/customcommands/', routeCustomCommands.put);
-    app.delete('/ep/customcommands/', routeCustomCommands.delete);
+    app.put('/ep/customcommands/:name/', routeCustomCommands.put);
+    app.delete('/ep/customcommands/:name/', routeCustomCommands.delete);
 
     // Disabled command related routes.
     app.get('/ep/disabledcommands/', routeList.get(database.getDisabledCommands));

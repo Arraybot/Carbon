@@ -88,6 +88,10 @@ function genericAjaxRequest(method, url, body, task, success, error) {
                     toastError(`Could not ${task}, as the resource could not be found.`);
                     error();
                     break;
+                case 409:
+                    toastError(`Could not ${task}, as the name is already in use.`)
+                    error();
+                    break;
                 case 429:
                     toastError(`Could not ${task}, you are sending too many requests.`);
                     error();

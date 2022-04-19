@@ -17,7 +17,9 @@ module.exports = {
     getDisabledCommands: getDisabledCommands,
     setDisabledCommands: setDisabledCommands,
     getFilter: getFilter,
-    setFilter: setFilter
+    setFilter: setFilter,
+    getCustomCommands: getCustomCommands,
+    getCustomCommand: getCustomCommand
 };
 
 pool.on('error', (err, _) => {
@@ -230,6 +232,36 @@ async function setDisabledCommands(id, data) {
     } catch (error) {
         await client.query('ROLLBACK;');
         throw error;
+    } finally {
+        client.release();
+    }
+}
+
+/**
+ * Gets all custom commands for a guild.
+ * @param {number} id The ID.
+ */
+async function getCustomCommands(id) {
+    const client = await pool.connect();
+    try {
+        const result = await client.query('SELECT "name", "description" FROM custom_commands WHERE id = $1;', [id]);
+        return result.rows;
+    } finally {
+        client.release();
+    }
+}
+
+/**
+ * Gets a single custom command.
+ * @param {number} id The ID.
+ * @param {name} name The custom command name.
+ * @returns The custom command, or null.
+ */
+async function getCustomCommand(id, name) {
+    const client = await pool.connect();
+    try {
+        const result = await client.query('SELECT * FROM custom_commands WHERE id = $1 AND name = $2;', [id, name]);
+        return result.length > 0 ? result.rows[0] : null;
     } finally {
         client.release();
     }

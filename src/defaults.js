@@ -22,3 +22,11 @@ exports.filter = {
     private: false,
     message: ''
 }
+
+exports.custom_command = {
+    input: false,
+    type: 'MESSAGE',
+    permission: '',
+    description: 'No description set...',
+    value: 'Update me in the dashboard!'
+}
