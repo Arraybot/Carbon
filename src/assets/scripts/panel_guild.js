@@ -26,7 +26,7 @@ function apiLoad() {
         for (input of inputs) {
             genericStaticWrite(data, input);
         }
-    });
+    }, () => {});
 }
 
 /**
@@ -71,7 +71,7 @@ function apiSave() {
     let button = document.getElementById('save');
     let changed = document.getElementsByClassName('changed');
     if (changed.length == 0) {
-        button.onclick = () => {};
+        button.onclick = () => { return false };
         button.disabled = true;
     } else {
         button.onclick = () => {
@@ -79,6 +79,7 @@ function apiSave() {
             setAllInputs(false);
             // Update.
             apiSave();
+            return false;
         };
         button.disabled = false;
     }

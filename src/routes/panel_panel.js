@@ -56,7 +56,6 @@ module.exports = async (req, res) => {
     }
     // See what dashboard they are on, and render that.
     let dash = req.params.dash;
-    console.log('Looking for ' + dash);
     let panelObject = dash == null ? dashes[0] : dashes.find(it => it.name === dash);
     if (panelObject == null) {
         // Unknwon dash, go to main panel page.

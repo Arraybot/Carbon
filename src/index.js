@@ -106,7 +106,7 @@ database.start().then(() => {
 
     // Custom command related routes.
     app.get('/ep/customcommands/:name/', routeCustomCommands.get);
-    app.post('/ep/customcommands/', routeCustomCommands.post);
+    app.post('/ep/customcommands/:name/', routeCustomCommands.post);
     app.put('/ep/customcommands/:name/', routeCustomCommands.put);
     app.delete('/ep/customcommands/:name/', routeCustomCommands.delete);
 

@@ -35,7 +35,7 @@ function apiLoad() {
         for (let i = 0; i < LIST_SIZE; i++) {
             listPopulate(i, list[i]);
         }
-    })
+    }, () => {})
 }
 
 /**
@@ -118,6 +118,7 @@ function listAdd(index, value) {
     button.classList.add('button', 'is-dark');
     button.onclick = (ev) => {
         listDelete(index, ev.currentTarget);
+        return false;
     };
     // Add the icon.
     let span = document.createElement('span');
@@ -233,7 +234,7 @@ function determineSaveButton() {
     let button = document.getElementById('save');
     // Final check to see if anything changed.
     if (!changed) {
-        button.onclick = () => {};
+        button.onclick = () => { return false; };
         button.disabled = true;
     } else {
         button.onclick = () => {
@@ -242,6 +243,7 @@ function determineSaveButton() {
             setAllInputs(false);
             // Update.
             apiSave();
+            return false;
         };
         button.disabled = false;
     }

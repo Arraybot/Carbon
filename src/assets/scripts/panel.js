@@ -19,7 +19,8 @@ window.onload = () => {
     if (sync != null) {
         sync.onclick = () => {
             setSync(false);
-            apiMeta(false)
+            apiMeta(false);
+            return false;
         };
     }
     apiMeta(true);

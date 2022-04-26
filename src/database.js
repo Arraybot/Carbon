@@ -19,7 +19,9 @@ module.exports = {
     getFilter: getFilter,
     setFilter: setFilter,
     getCustomCommands: getCustomCommands,
-    getCustomCommand: getCustomCommand
+    getCustomCommand: getCustomCommand,
+    createCustomCommand: createCustomCommand,
+    deleteCustomCommand: deleteCustomCommand
 };
 
 pool.on('error', (err, _) => {
@@ -254,7 +256,7 @@ async function getCustomCommands(id) {
 /**
  * Gets a single custom command.
  * @param {number} id The ID.
- * @param {name} name The custom command name.
+ * @param {string} name The custom command name.
  * @returns The custom command, or null.
  */
 async function getCustomCommand(id, name) {
@@ -262,6 +264,42 @@ async function getCustomCommand(id, name) {
     try {
         const result = await client.query('SELECT * FROM custom_commands WHERE id = $1 AND name = $2;', [id, name]);
         return result.length > 0 ? result.rows[0] : null;
+    } finally {
+        client.release();
+    }
+}
+
+/**
+ * Creates a custom command with default values.
+ * Will cause a collision if the name already exists.
+ * @param {number} id The ID.
+ * @param {string} name The custom command name.
+ */
+async function createCustomCommand(id, name) {
+    const client = await pool.connect();
+    try {
+        await client.query('INSERT INTO custom_commands (id, name) VALUES ($1, $2);', [id, name]);
+    } catch (exception) {
+        // Silently let duplicates fail and pretend everything went okay.
+        // Let them edit the existing command if they want to.
+        if (exception.code !== '23505') {
+            console.log(exception);
+        }
+    } finally {
+        client.release();
+    }
+}
+
+/**
+ * Deletes a custom command.
+ * Will drop silently if it does not exist.
+ * @param {number} id The ID.
+ * @param {string} name The custom command name.
+ */
+async function deleteCustomCommand(id, name) {
+    const client = await pool.connect();
+    try {
+        await client.query('DELETE FROM custom_commands WHERE id = $1 AND name = $2;', [id, name]);
     } finally {
         client.release();
     }
